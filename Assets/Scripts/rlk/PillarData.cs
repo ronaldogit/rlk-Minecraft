@@ -23,7 +23,7 @@ public class PillarData {
 		}
 	}
 
-	public Vector3[] centerPositions{
+	public Vector3[] centerSidePositions{
 		get { 
 			return new Vector3[] {
 				new Vector3 (-0.25f * width, 0.5f * heigth, 0f),
@@ -33,7 +33,9 @@ public class PillarData {
 		}
 	}
 
-
+	public Vector3 localCenterPosition{
+		get{ return Vector3.zero;}
+	}
 
 
 }
