@@ -34,7 +34,22 @@ public static class CubeMeshData {
 		return fv;
 	}
 
-	public static Vector3[] faceVertices(Direction dir, float scale, Vector3 pos){
+
+    public static Vector3[] faceVertices3(int dir, float scale, Vector3 pos)
+    {
+        Debug.Log("scale," + scale + "===========pos:" + pos);
+        Vector3[] fv = new Vector3[4];
+        for (int i = 0; i < fv.Length; i++)
+        {
+            //fv[i] = (vertices[faceTriangles[dir][i]] * scale) + pos;
+            fv[i].x = (vertices[faceTriangles[dir][i]].x * scale) + pos.x;
+            fv[i].y = (vertices[faceTriangles[dir][i]].y * 1f) + pos.y;
+            fv[i].z = (vertices[faceTriangles[dir][i]].z * 1f) + pos.z;
+        }
+        return fv;
+    }
+
+    public static Vector3[] faceVertices(Direction dir, float scale, Vector3 pos){
 		return faceVertices((int)dir, scale, pos);
 	}
 }
