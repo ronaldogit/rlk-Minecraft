@@ -6,21 +6,23 @@ public class ProcedualPillar : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		PillarData p = new PillarData (12f,10f);
+		PillarData p = new PillarData (20f,10f,120f);
 		Debug.Log ("angle" + p.angle +"\n" + 
 			"centerPositions"	+ p.centerSidePositions[0] +"\n"
 			+ "position" + p.localCenterPosition );
         //MakeCube (1f, Vector3.zero);
 
-        //foreach (float len in p.sideLens){
-        //    MakeCube(len, Vector3.zero);
-        //}
+        foreach (float len in p.sideLens){
+			Debug.Log ("len==" + len);
+        }
 
         for (int i = 0; i < p.sideLens.Length; i++)
         {
             float len = (float)p.sideLens[i];
             GameObject go =MakeCube(len, Vector3.zero);
-            go.transform.position = go.transform.position + p.centerSidePositions[i];
+			go.name = go.name + i + "..";
+			go.transform.position = go.transform.position + p.centerSidePositions[i];
+			go.transform.rotation = Quaternion.Euler(0f, 0f, p.localRotations[i]);
         }
     }
 
