@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class CubeMeshData {
+	public static float xThickness = 0.5f;
+	public static float yThickness = 0.2f;
+	public static float zThickness = 0.2f;
 	public static Vector3 [] vertices = {
-		new Vector3( 1, 1, 1),
-		new Vector3( -1, 1, 1),
-		new Vector3( -1, -1, 1),
-		new Vector3( 1, -1, 1),
-		new Vector3(-1, 1, -1),
-		new Vector3(1, 1, -1),
-		new Vector3(1, -1, -1),
-		new Vector3(-1, -1, -1),
+		new Vector3( 1, 1f*yThickness, 		1f*zThickness),
+		new Vector3( -1, 1f*yThickness, 	1f*zThickness),
+		new Vector3( -1, -1f*yThickness,	1f*zThickness),
+		new Vector3( 1, -1f*yThickness, 	1f*zThickness),
+		new Vector3(-1, 1f*yThickness,     -1f*zThickness),
+		new Vector3(1, 1f*yThickness,      -1f*zThickness),
+		new Vector3(1, -1f*yThickness, 	   -1f*zThickness),
+		new Vector3(-1, -1f*yThickness,    -1f*zThickness),
 
 	};
 

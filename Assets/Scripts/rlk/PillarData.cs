@@ -68,7 +68,7 @@ public class PillarData {
 
 
     //	各条边长度 纯长 不带延长的 顺序为左上斜边，右上斜边，底边，中间的边净高h，各个小边 从左侧开始，h1，h2，h3，h4
-
+	//这个长度只有一半哟 因为构造立方体需要
     public float[] sideLens {
         get
         {
@@ -79,22 +79,21 @@ public class PillarData {
 			Debug.Log ("heigth0" + this.heigth0);
 			Debug.Log ("leftH1" + this.leftH1);
             return new float[] {
-                0.5f * (heigth0 / Mathf.Sin(this.angle)) ,
+                0.5f * (heigth0 / Mathf.Sin(this.angle)),
                 0.5f * (heigth0 / Mathf.Sin(this.angle)),
                 0.5f * this.width,
                 0.5f * this.heigth,
                 //左边的各个竖立边的长度
-                //0.5f*this.width/5
-                this.heigth - this.heigth0,                                                //4
-                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*1,    //5
-                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*2,    //6
-                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*3,    //7
-                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*4,    //8
-                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*4,    //9
-                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*3,    //10
-                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*2,    //11
-                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*1,    //12
-                this.heigth - this.heigth0                                                 //13
+				0.5f * (this.heigth - this.heigth0),		                                        //4
+				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*1),    //5
+				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*2),    //6
+				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*3),    //7
+				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*4),    //8
+				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*4),    //9
+				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*3),    //10
+				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*2),    //11
+				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*1),    //12
+				0.5f * (this.heigth - this.heigth0)                                             	//13
                 //右边的各个竖立边长度
             };
         }
@@ -130,17 +129,18 @@ public class PillarData {
 				new Vector3 (-(0.25f * this.width + 1f* Mathf.Sin(this.angle)), 0.5f * this.heigth + 1f* Mathf.Cos(this.angle), 0f),
 				new Vector3 ((0.25f * this.width + 1f* Mathf.Sin(this.angle)), 0.5f * this.heigth + 1f* Mathf.Cos(this.angle), 0f),
 				new Vector3 (0f, 0f, 0f),
-				new Vector3 (0f,  this.heigth * 0.5f, 0f),
-                new Vector3 (0f,  this.sideLens[4] * 0.5f, 0f),
-                new Vector3 (0f,  this.sideLens[5] * 0.5f, 0f),
-                new Vector3 (0f,  this.sideLens[6] * 0.5f, 0f),
-                new Vector3 (0f,  this.sideLens[7] * 0.5f, 0f),
-                new Vector3 (0f,  this.sideLens[8] * 0.5f, 0f),
-                new Vector3 (0f,  this.sideLens[9] * 0.5f, 0f),
-                new Vector3 (0f,  this.sideLens[10] * 0.5f, 0f),
-                new Vector3 (0f,  this.sideLens[11] * 0.5f, 0f),
-                new Vector3 (0f,  this.sideLens[12] * 0.5f, 0f),
-                new Vector3 (0f,  this.sideLens[13] * 0.5f, 0f),
+				new Vector3 (0f, this.heigth * 0.5f, 0f),
+				new Vector3 (-0.5f* this.width,  this.sideLens[4], 0f),
+				new Vector3 (-0.4f* this.width,  this.sideLens[5], 0f),
+				new Vector3 (-0.3f* this.width,  this.sideLens[6], 0f),
+				new Vector3 (-0.2f* this.width,  this.sideLens[7], 0f),
+				new Vector3 (-0.1f* this.width,  this.sideLens[8], 0f),
+
+				new Vector3 (0.1f* this.width,  this.sideLens[9] , 0f),
+				new Vector3 (0.2f* this.width,  this.sideLens[10], 0f),
+				new Vector3 (0.3f* this.width,  this.sideLens[11], 0f),
+				new Vector3 (0.4f* this.width,  this.sideLens[12], 0f),
+				new Vector3 (0.5f* this.width,  this.sideLens[13], 0f),
 
             };
 		}
@@ -178,7 +178,29 @@ public class PillarData {
 
 	public float[] localRotations {
 		get{ 
-			return new float[]{this.angle * Mathf.Rad2Deg, 360f- this.angle * Mathf.Rad2Deg, 0f, 90f};
+			return new float[]{
+				this.angle * Mathf.Rad2Deg,
+				360f- this.angle * Mathf.Rad2Deg,
+				0f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+			};
 		}
 	} 
 

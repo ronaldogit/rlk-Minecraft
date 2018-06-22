@@ -19,6 +19,7 @@ public class ProcedualPillar : MonoBehaviour {
         for (int i = 0; i < p.sideLens.Length; i++)
         {
             float len = (float)p.sideLens[i];
+			Debug.Log ("len " + len + " i=  " + i);
             GameObject go =MakeCube(len, Vector3.zero);
 			go.name = go.name + i + "..";
 			go.transform.position = go.transform.position + p.centerSidePositions[i];
@@ -59,12 +60,12 @@ public class ProcedualPillar : MonoBehaviour {
 
 
 		Mesh mesh = go.GetComponent<MeshFilter> ().mesh;
-		//		mesh.triangles = 
-		//	    mesh.vertices = mesh 
+		//mesh.triangles = 
+		//mesh.vertices = mesh 
 		List<Vector3> vertices = new List<Vector3> ();
 		List<int> triangles = new List<int> ();
 		for (int i = 0; i < 6; i++) {
-			//			MakeFace (i, scale, pos);
+			//MakeFace (i, scale, pos);
 			//vertices.AddRange (CubeMeshData.faceVertices (i, scale, localPos));
             vertices.AddRange(CubeMeshData.faceVertices3(i, scale, localPos));
             int vCount = vertices.Count;
