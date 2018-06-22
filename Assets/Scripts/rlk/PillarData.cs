@@ -35,7 +35,7 @@ public class PillarData {
 			return result;}
 	}
 
-	//内长
+	//内边缘长
 	public PillarData(float w, float h, float topAngle){
 		this.width = w;
 		this.heigth = h;
@@ -51,23 +51,24 @@ public class PillarData {
 		}
 	}
 
-// //	三条边半长
-//     public float[] sideLens {
-//         get
-//         {
-// 			Debug.Log (this.angle);
-// //			Debug.Log (Mathf.Sin(this.angle));
-// 			Debug.Log (Mathf.Sin(this.angle));
-// 			return new float[] {
-// 				0.5f * (heigth0 / Mathf.Sin(this.angle) + 1f / Mathf.Tan(this.angle) + Mathf.Tan(this.angle)) ,
-// 				0.5f * (heigth0 / Mathf.Sin(this.angle) + 1f / Mathf.Tan(this.angle) + Mathf.Tan(this.angle)),
-// 				0.5f * width,
-//             };
-//         }
-//     }
+    // //	三条边半长
+    //     public float[] sideLens {
+    //         get
+    //         {
+    // 			Debug.Log (this.angle);
+    // //			Debug.Log (Mathf.Sin(this.angle));
+    // 			Debug.Log (Mathf.Sin(this.angle));
+    // 			return new float[] {
+    // 				0.5f * (heigth0 / Mathf.Sin(this.angle) + 1f / Mathf.Tan(this.angle) + Mathf.Tan(this.angle)) ,
+    // 				0.5f * (heigth0 / Mathf.Sin(this.angle) + 1f / Mathf.Tan(this.angle) + Mathf.Tan(this.angle)),
+    // 				0.5f * width,
+    //             };
+    //         }
+    //     }
 
 
-	//	三条边半长 纯长 不带延长的
+    //	各条边长度 纯长 不带延长的 顺序为左上斜边，右上斜边，底边，中间的边净高h，各个小边 从左侧开始，h1，h2，h3，h4
+
     public float[] sideLens {
         get
         {
@@ -77,11 +78,24 @@ public class PillarData {
 			Debug.Log (Mathf.Sin(this.angle));
 			Debug.Log ("heigth0" + this.heigth0);
 			Debug.Log ("leftH1" + this.leftH1);
-			return new float[] {
-				0.5f * (heigth0 / Mathf.Sin(this.angle)) ,
-				0.5f * (heigth0 / Mathf.Sin(this.angle)),
-				0.5f * this.width,
-				0.5f * this.heigth,
+            return new float[] {
+                0.5f * (heigth0 / Mathf.Sin(this.angle)) ,
+                0.5f * (heigth0 / Mathf.Sin(this.angle)),
+                0.5f * this.width,
+                0.5f * this.heigth,
+                //左边的各个竖立边的长度
+                //0.5f*this.width/5
+                this.heigth - this.heigth0,                                                //4
+                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*1,    //5
+                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*2,    //6
+                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*3,    //7
+                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*4,    //8
+                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*4,    //9
+                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*3,    //10
+                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*2,    //11
+                this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*1,    //12
+                this.heigth - this.heigth0                                                 //13
+                //右边的各个竖立边长度
             };
         }
     }
@@ -116,8 +130,19 @@ public class PillarData {
 				new Vector3 (-(0.25f * this.width + 1f* Mathf.Sin(this.angle)), 0.5f * this.heigth + 1f* Mathf.Cos(this.angle), 0f),
 				new Vector3 ((0.25f * this.width + 1f* Mathf.Sin(this.angle)), 0.5f * this.heigth + 1f* Mathf.Cos(this.angle), 0f),
 				new Vector3 (0f, 0f, 0f),
-				new Vector3 (0f,  this.heigth * 0.5f, 0f)
-			};
+				new Vector3 (0f,  this.heigth * 0.5f, 0f),
+                new Vector3 (0f,  this.sideLens[4] * 0.5f, 0f),
+                new Vector3 (0f,  this.sideLens[5] * 0.5f, 0f),
+                new Vector3 (0f,  this.sideLens[6] * 0.5f, 0f),
+                new Vector3 (0f,  this.sideLens[7] * 0.5f, 0f),
+                new Vector3 (0f,  this.sideLens[8] * 0.5f, 0f),
+                new Vector3 (0f,  this.sideLens[9] * 0.5f, 0f),
+                new Vector3 (0f,  this.sideLens[10] * 0.5f, 0f),
+                new Vector3 (0f,  this.sideLens[11] * 0.5f, 0f),
+                new Vector3 (0f,  this.sideLens[12] * 0.5f, 0f),
+                new Vector3 (0f,  this.sideLens[13] * 0.5f, 0f),
+
+            };
 		}
 	}
 
