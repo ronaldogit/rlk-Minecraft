@@ -8,7 +8,7 @@ public class ProceduralCube : MonoBehaviour {
 	List<Vector3> vertices;
 	List<int> triangles;
 	float scale=1;
-	float xPos, yPos, zPos;
+	float xPos=0f, yPos=0f, zPos=0f;
 
 	void Awake(){
 		mesh = GetComponent<MeshFilter> ().mesh;

@@ -126,8 +126,11 @@ public class PillarData {
 	public Vector3[] centerSidePositions{
 		get { 
 			return new Vector3[] {
-				new Vector3 (-(0.25f * this.width + 1f* Mathf.Sin(this.angle)), 0.5f * this.heigth + 1f* Mathf.Cos(this.angle), 0f),
-				new Vector3 ((0.25f * this.width + 1f* Mathf.Sin(this.angle)), 0.5f * this.heigth + 1f* Mathf.Cos(this.angle), 0f),
+//				new Vector3 (-(0.25f * this.width + 1f* Mathf.Sin(this.angle)), 0.5f * this.heigth + 1f* Mathf.Cos(this.angle), 0f),
+				new Vector3 (-(this.sideLens[0] * Mathf.Cos(this.angle)  + CubeMeshData.yThickness * Mathf.Sin(this.angle)),  this.heigth - this.heigth0 + 0.5f * this.heigth0 + CubeMeshData.yThickness * Mathf.Cos(this.angle), 0f),
+				new Vector3 ((this.sideLens[0] * Mathf.Cos(this.angle)  + CubeMeshData.yThickness * Mathf.Sin(this.angle)),  this.heigth - this.heigth0 + 0.5f * this.heigth0 + CubeMeshData.yThickness * Mathf.Cos(this.angle), 0f),
+
+//				new Vector3 ((0.25f * this.width + 1f* Mathf.Sin(this.angle)), 0.5f * this.heigth + 1f* Mathf.Cos(this.angle), 0f),
 				new Vector3 (0f, 0f, 0f),
 				new Vector3 (0f, this.heigth * 0.5f, 0f),
 				new Vector3 (-0.5f* this.width,  this.sideLens[4], 0f),
