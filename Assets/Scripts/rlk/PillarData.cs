@@ -15,6 +15,42 @@ public class PillarData {
 		}
 	}
 
+//	public float topInsideAngle0 {
+//		// get { return Mathf.Atan2 (heigth, 0.5f * width) * Mathf.Rad2Deg; } 
+//		get{
+//			//			Debug.Log (this.topAngle);
+//			return Mathf.Atan2(0.2f * this.width, this.heigth);
+//		}
+//	}
+//
+//	public float topInsideAngle1 {
+//		// get { return Mathf.Atan2 (heigth, 0.5f * width) * Mathf.Rad2Deg; } 
+//		get{
+//			//			Debug.Log (this.topAngle);
+//			return Mathf.Atan2(0.1f * this.width, this.sideLens[5] );
+//		}
+//	}
+//
+//
+//	public float topInsideAngle2 {
+//		// get { return Mathf.Atan2 (heigth, 0.5f * width) * Mathf.Rad2Deg; } 
+//		get{
+//			//			Debug.Log (this.topAngle);
+//			return Mathf.Atan2(0.1f * this.width, this.sideLens[6]);
+//		}
+//	}
+//
+//
+//	public float topInsideAngle3 {
+//		// get { return Mathf.Atan2 (heigth, 0.5f * width) * Mathf.Rad2Deg; } 
+//		get{
+//			//			Debug.Log (this.topAngle);
+//			return Mathf.Atan2(0.1f * this.width, this.heigth);
+//		}
+//	}
+//
+
+
 	//左边那个最矮的高度
 	public float leftH1 
 	{
@@ -26,12 +62,12 @@ public class PillarData {
 	public float heigth0 
 	{
 		get{	
-			Debug.Log ("-------------");
-			Debug.Log (Mathf.Tan (this.angle));
-			Debug.Log (this.angle);
-			Debug.Log ( this.width);
+//			Debug.Log ("-------------");
+//			Debug.Log (Mathf.Tan (this.angle));
+//			Debug.Log (this.angle);
+//			Debug.Log ( this.width);
 			float result = 0.5f * Mathf.Tan (this.angle) * this.width;
-			Debug.Log ("result "+ result);
+//			Debug.Log ("result "+ result);
 			return result;}
 	}
 
@@ -72,12 +108,12 @@ public class PillarData {
     public float[] sideLens {
         get
         {
-			Debug.Log ("len=-=============");
-			Debug.Log (this.angle);
-			Debug.Log (Mathf.Tan(this.angle ));
-			Debug.Log (Mathf.Sin(this.angle));
-			Debug.Log ("heigth0" + this.heigth0);
-			Debug.Log ("leftH1" + this.leftH1);
+//			Debug.Log ("len=-=============");
+//			Debug.Log (this.angle);
+//			Debug.Log (Mathf.Tan(this.angle ));
+//			Debug.Log (Mathf.Sin(this.angle));
+//			Debug.Log ("heigth0" + this.heigth0);
+//			Debug.Log ("leftH1" + this.leftH1);
             return new float[] {
                 0.5f * (heigth0 / Mathf.Sin(this.angle)),
                 0.5f * (heigth0 / Mathf.Sin(this.angle)),
@@ -95,9 +131,126 @@ public class PillarData {
 				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*1),    //12
 				0.5f * (this.heigth - this.heigth0)                                             	//13
                 //右边的各个竖立边长度
+
             };
         }
     }
+
+	//计算各个内在斜边长度 左边9个 都需要再乘以0.5f
+	public float[] sideInnerLens{
+		get{ 
+			return new float[] {
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[0]),
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[0]),
+
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[1]),
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[1]),
+
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[2]),
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[2]),
+
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[3]),
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[3]),
+
+				0.2f * 0.5f * this.width / Mathf.Cos(this.anglesInner[4]),
+				0.2f * 0.5f * this.width / Mathf.Cos(this.anglesInner[4]),    //10
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[3]),    //11
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[3]),    //12
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[2]),    //13
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[2]),    //14
+
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[1]),    //15
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[1]),    //16
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[0]),    //17
+				0.1f * 0.5f * this.width / Mathf.Cos(this.anglesInner[0]),    //18
+
+			};
+		}
+	}
+
+
+	public Vector3[] sideInnerCenters{
+		get{ 
+			return new Vector3[]{
+				new Vector3(-(0.95f * 0.5f * this.width),   0.5f * this.centerHs[0], 0f),
+				new Vector3(-(0.85f * 0.5f * this.width),   0.5f * this.centerHs[0], 0f),
+				new Vector3(-(0.75f * 0.5f * this.width),   0.5f * this.centerHs[1], 0f),
+				new Vector3(-(0.65f * 0.5f * this.width),   0.5f * this.centerHs[1], 0f),
+				new Vector3(-(0.55f * 0.5f * this.width),   0.5f * this.centerHs[2], 0f),
+				new Vector3(-(0.45f * 0.5f * this.width),   0.5f * this.centerHs[2], 0f),
+				new Vector3(-(0.35f * 0.5f * this.width),   0.5f * this.centerHs[3], 0f),
+				new Vector3(-(0.25f * 0.5f * this.width),   0.5f * this.centerHs[3], 0f),
+				new Vector3(-(0.10f * 0.5f * this.width),  0.5f * this.heigth, 0f),
+				new Vector3((0.10f * 0.5f * this.width),   0.5f * this.heigth, 0f),
+				new Vector3((0.25f * 0.5f * this.width),   0.5f * this.centerHs[3], 0f),
+				new Vector3((0.35f * 0.5f * this.width),   0.5f * this.centerHs[3], 0f),
+				new Vector3((0.45f * 0.5f * this.width),   0.5f * this.centerHs[2], 0f),
+				new Vector3((0.55f * 0.5f * this.width),   0.5f * this.centerHs[2], 0f),
+				new Vector3((0.65f * 0.5f * this.width),   0.5f * this.centerHs[1], 0f),
+				new Vector3((0.75f * 0.5f * this.width),   0.5f * this.centerHs[1], 0f),
+				new Vector3((0.85f * 0.5f * this.width),   0.5f * this.centerHs[0], 0f),
+				new Vector3((0.95f * 0.5f * this.width),   0.5f * this.centerHs[0], 0f)
+
+//				new Vector3{},
+			};
+		}
+	}
+
+	public float[] localInnerRotations{
+		get { 
+			return new float[]{
+				this.anglesInner[0] * Mathf.Rad2Deg,                 //1
+				360f - this.anglesInner[0] * Mathf.Rad2Deg ,         //2
+				this.anglesInner[1] * Mathf.Rad2Deg,                 //3
+				360f - this.anglesInner[1] * Mathf.Rad2Deg,          //4
+				this.anglesInner[2] * Mathf.Rad2Deg,                 //5
+				360f - this.anglesInner[2] * Mathf.Rad2Deg,          //6
+				this.anglesInner[3] * Mathf.Rad2Deg,                 //7
+				360f - this.anglesInner[3] * Mathf.Rad2Deg,          //8
+				this.anglesInner[4] * Mathf.Rad2Deg,                 //9
+				360f - this.anglesInner[4] * Mathf.Rad2Deg,          //10
+				this.anglesInner[3] * Mathf.Rad2Deg,   //11
+				360f - this.anglesInner[3] * Mathf.Rad2Deg,//12
+				this.anglesInner[2] * Mathf.Rad2Deg,                 //13
+				360f - this.anglesInner[2] * Mathf.Rad2Deg, //14
+				this.anglesInner[1] * Mathf.Rad2Deg,  //15
+				360f - this.anglesInner[1] * Mathf.Rad2Deg,//16
+				this.anglesInner[0] * Mathf.Rad2Deg,       //17
+				360f - this.anglesInner[0] * Mathf.Rad2Deg  //18
+		
+			};
+		}
+	}
+
+	//四个边辅助线的位置
+
+	public float[] centerHs{
+		get { 
+			return new float[] {
+				this.heigth - this.heigth0  + 0.5f*this.width * 0.1f * Mathf.Tan(this.angle),	
+				this.heigth - this.heigth0  + 0.5f*this.width * 0.3f * Mathf.Tan(this.angle),	
+				this.heigth - this.heigth0  + 0.5f*this.width * 0.5f * Mathf.Tan(this.angle),	
+				this.heigth - this.heigth0  + 0.5f*this.width * 0.7f * Mathf.Tan(this.angle)	
+			};
+	     }
+	}
+
+
+
+
+	//左边5个角度
+	public float[] anglesInner{
+		get{ 
+			return new float[] {
+				Mathf.Atan2 (this.centerHs [0], 0.1f * 0.5f * this.width),
+				Mathf.Atan2 (this.centerHs [1], 0.1f * 0.5f * this.width),
+				Mathf.Atan2 (this.centerHs [2], 0.1f * 0.5f * this.width),
+				Mathf.Atan2 (this.centerHs [3], 0.1f * 0.5f * this.width),
+				Mathf.Atan2 (this.heigth, 0.2f * 0.5f * this.width)
+			};
+		}
+	}
+
 
 	public float widthOutSide{
 		get { 
@@ -122,7 +275,7 @@ public class PillarData {
 //		}
 //	}
 
-
+	//中心坐标 计算平移值
 	public Vector3[] centerSidePositions{
 		get { 
 			return new Vector3[] {

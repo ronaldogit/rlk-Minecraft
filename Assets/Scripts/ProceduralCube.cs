@@ -30,10 +30,10 @@ public class ProceduralCube : MonoBehaviour {
 
 	void MakeFace(int dir, float scale, Vector3 pos){
 		vertices.AddRange (CubeMeshData.faceVertices (dir, scale, pos));
-		print (dir);
+//		print (dir);
 		int vCount = vertices.Count;
 
-		print (vCount);
+//		print (vCount);
 		triangles.Add (vCount -4 + 0);
 		triangles.Add (vCount -4 + 1);
 		triangles.Add (vCount -4 + 2);
