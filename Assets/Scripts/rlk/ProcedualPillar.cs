@@ -6,7 +6,7 @@ public class ProcedualPillar : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		PillarData p = new PillarData (20f,10f,120f);
+		PillarData p = new PillarData (40f,10f,150f);
 //		Debug.Log ("angle" + p.angle +"\n" + 
 //			"centerPositions"	+ p.centerSidePositions[0] +"\n"
 //			+ "position" + p.localCenterPosition );
