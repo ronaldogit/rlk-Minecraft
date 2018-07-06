@@ -7,6 +7,7 @@ public class ProcedualPillar : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		PillarData p = new PillarData (40f,10f,150f);
+		p.draw ();
 //		Debug.Log ("angle" + p.angle +"\n" + 
 //			"centerPositions"	+ p.centerSidePositions[0] +"\n"
 //			+ "position" + p.localCenterPosition );
@@ -16,26 +17,26 @@ public class ProcedualPillar : MonoBehaviour {
 //			Debug.Log ("len==" + len);
 //        }
 
-        for (int i = 0; i < p.sideLens.Length; i++)
-        {
-            float len = (float)p.sideLens[i];
+//        for (int i = 0; i < p.sideLens.Length; i++)
+//        {
+//            float len = (float)p.sideLens[i];
+////			Debug.Log ("len " + len + " i=  " + i);
+//            GameObject go =MakeCube(len, Vector3.zero);
+//			go.name = go.name + i + "..";
+//			go.transform.position = go.transform.position + p.centerSidePositions[i];
+//			go.transform.rotation = Quaternion.Euler(0f, 0f, p.localRotations[i]);
+//        }
+//
+//
+//		for (int i = 0; i < p.sideInnerLens.Length; i++)
+//		{
+//			float len = (float)p.sideInnerLens[i];
 //			Debug.Log ("len " + len + " i=  " + i);
-            GameObject go =MakeCube(len, Vector3.zero);
-			go.name = go.name + i + "..";
-			go.transform.position = go.transform.position + p.centerSidePositions[i];
-			go.transform.rotation = Quaternion.Euler(0f, 0f, p.localRotations[i]);
-        }
-
-
-		for (int i = 0; i < p.sideInnerLens.Length; i++)
-		{
-			float len = (float)p.sideInnerLens[i];
-			Debug.Log ("len " + len + " i=  " + i);
-			GameObject go =MakeCube(0.5f*len, Vector3.zero);
-			go.name = go.name + i + "...";
-			go.transform.position = go.transform.position + p.sideInnerCenters[i];
-			go.transform.rotation = Quaternion.Euler(0f, 0f, p.localInnerRotations[i]);
-		}
+//			GameObject go =MakeCube(0.5f*len, Vector3.zero);
+//			go.name = go.name + i + "...";
+//			go.transform.position = go.transform.position + p.sideInnerCenters[i];
+//			go.transform.rotation = Quaternion.Euler(0f, 0f, p.localInnerRotations[i]);
+//		}
     }
 
     // Update is called once per frame
