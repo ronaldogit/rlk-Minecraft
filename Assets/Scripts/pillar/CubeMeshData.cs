@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class CubeMeshData {
-	public static float xThickness = 1f;
-	public static float yThickness = 0.2f;
-	public static float zThickness = 0.1f;
+	public static float xThickness = 1f;    //柱子
+	public static float yThickness = 1f;
+	public static float zThickness = 0.2f;
+
+//	public static float xThickness = 1f;    //柱子
+//	public static float yThickness = 0.5f;
+//	public static float zThickness = 0.1f;
+
 	public static Vector3 [] vertices = {
 		new Vector3( 1, 1f*yThickness, 		1f*zThickness),
 		new Vector3( -1, 1f*yThickness, 	1f*zThickness),
@@ -17,6 +22,10 @@ public static class CubeMeshData {
 		new Vector3(-1, -1f*yThickness,    -1f*zThickness),
 
 	};
+	public static Vector3[] vertices {
+		Vector3[] = new vector3
+		return 
+	}
 
 	//can be seen
 	public static int[][] faceTriangles = {

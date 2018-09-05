@@ -72,11 +72,22 @@ public class PillarData {
 	}
 
 	//内边缘长
-	public PillarData(float w, float h, float topAngle){
+	//w:钢架宽； h:钢架高； topAngle:顶角
+//	public PillarData(float w, float h, float topAngle){
+//		this.width = w;
+//		this.heigth = h;
+//		this.topAngle = topAngle;
+//	}
+
+	//w:钢架宽； h1:钢架边高1； h2:钢架边高2
+	public PillarData(float w, float h1, float h2){
 		this.width = w;
-		this.heigth = h;
-		this.topAngle = topAngle;
+		this.heigth = h1+h2;
+		this.topAngle = 2f * Mathf.Atan((0.5f*w)/h2) * Mathf.Rad2Deg;
+		Debug.Log(this.width + " " + this.heigth + " " +this.topAngle);
 	}
+
+
 	//三个顶点坐标 左下 最上 右下
 	public Vector3[] vertices{
 		get { return new Vector3[] {
