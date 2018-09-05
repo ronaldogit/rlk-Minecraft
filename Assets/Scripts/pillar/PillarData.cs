@@ -72,11 +72,21 @@ public class PillarData {
 	}
 
 	//内边缘长
-	public PillarData(float w, float h, float topAngle){
+	//w:钢架宽； h:钢架高； topAngle:顶角
+//	public PillarData(float w, float h, float topAngle){
+//		this.width = w;
+//		this.heigth = h;
+//		this.topAngle = topAngle;
+//	}
+
+	//w:钢架宽； h1:钢架边高1； h2:钢架边高2
+	public PillarData(float w, float h1, float h2){
 		this.width = w;
-		this.heigth = h;
-		this.topAngle = topAngle;
+		this.heigth = h1+h2;
+		this.topAngle = 2f * Mathf.Atan((0.5f*w)/h2) * Mathf.Rad2Deg;
 	}
+
+
 	//三个顶点坐标 左下 最上 右下
 	public Vector3[] vertices{
 		get { return new Vector3[] {
@@ -360,7 +370,8 @@ public class PillarData {
 		}
 	} 
 
-	public void  draw(){
+	public void  draw()
+	{
 		for (int i = 0; i < this.sideLens.Length; i++)
 		{
 			float len = (float)this.sideLens[i];
@@ -369,17 +380,21 @@ public class PillarData {
 			go.name = go.name + i + "..";
 			go.transform.position = go.transform.position + this.centerSidePositions[i];
 			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
+
+			go.transform.parent = RLKUtility.Room_pillar.transform;
 		}
 
 
 		for (int i = 0; i < this.sideInnerLens.Length; i++)
 		{
 			float len = (float)this.sideInnerLens[i];
-			Debug.Log ("len " + len + " i=  " + i);
+//			Debug.Log ("len " + len + " i=  " + i);
 			GameObject go =MakeCube(0.5f*len, Vector3.zero);
 			go.name = go.name + i + "...";
 			go.transform.position = go.transform.position + this.sideInnerCenters[i];
 			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localInnerRotations[i]);
+
+			go.transform.parent = RLKUtility.Room_pillar.transform;
 		}
 	}
 
