@@ -388,13 +388,49 @@ public class PillarData {
 		}
 	} 
 
+	public int[] leftOffsetVertices{
+		get{
+			return new int[] {
+				0,
+				5
+			};
+		}
+	}
+
+	public int[] rightOffsetVertices{
+		get{
+			return new int[] {
+				1,
+				4
+			};
+		}
+	}
+
+	public float[] leftOffsets{
+		get{
+			return new float[] {
+				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f,
+				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f
+			};
+		}
+	}
+
+	public float[] rightOffsets{
+		get{
+			return new float[] {
+				-(2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f),
+				-(2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f)
+			};
+		}
+	}
+
 	public void  draw()
 	{
 		for (int i = 0; i < 1; i++)
 		{
 			float len = (float)this.sideLens[i];
 			//			Debug.Log ("len " + len + " i=  " + i);
-			GameObject go =MakeCube1(len, Vector3.zero);
+			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.leftOffsetVertices, this.leftOffsets);
 			go.name = go.name + i + "..";
 			go.transform.position = go.transform.position + this.centerSidePositions[i];
 			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
@@ -407,7 +443,7 @@ public class PillarData {
 		{
 			float len = (float)this.sideLens[i];
 			//			Debug.Log ("len " + len + " i=  " + i);
-			GameObject go =MakeCube2(len, Vector3.zero);
+			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.rightOffsetVertices, this.rightOffsets);
 			go.name = go.name + i + "..";
 			go.transform.position = go.transform.position + this.centerSidePositions[i];
 			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
@@ -427,6 +463,7 @@ public class PillarData {
 			go.transform.parent = RLKUtility.Room_pillar.transform;
 		}
 
+		//构造内部斜边
 		for (int i = 0; i < this.sideInnerLens.Length; i++)
 		{
 			float len = (float)this.sideInnerLens[i];
@@ -474,7 +511,7 @@ public class PillarData {
 		return go;
 	}
 
-	public GameObject MakeCubeLeft(float scale, Vector3 localPos){
+	public GameObject MakeCubeWithSideOffset(float scale, Vector3 localPos, int[] leftOffsetVertices =null, float[] offsets = null){
 		//        Debug.Log(localPos);
 		GameObject go = new GameObject("game");
 		go.AddComponent<MeshFilter> ();
@@ -491,41 +528,7 @@ public class PillarData {
 		for (int i = 0; i < 6; i++) {
 			//MakeFace (i, scale, pos);
 			//vertices.AddRange (CubeMeshData.faceVertices (i, scale, localPos));
-			vertices.AddRange(CubeMeshData.faceVerticesLeft(i, scale, localPos));
-			int vCount = vertices.Count;
-			triangles.Add (vCount -4 + 0);
-			triangles.Add (vCount -4 + 1);
-			triangles.Add (vCount -4 + 2);
-			triangles.Add (vCount -4 + 0);
-			triangles.Add (vCount -4 + 2);
-			triangles.Add (vCount -4 + 3);
-		}
-		mesh.Clear ();
-		mesh.vertices = vertices.ToArray ();
-		mesh.triangles = triangles.ToArray ();
-		mesh.RecalculateNormals ();
-		//Debug.Log(go.GetComponent<MeshCollider>().bounds);
-		return go;
-	}
-
-	public GameObject MakeCubeRight(float scale, Vector3 localPos){
-		//        Debug.Log(localPos);
-		GameObject go = new GameObject("game");
-		go.AddComponent<MeshFilter> ();
-		MeshRenderer render =  go.AddComponent<MeshRenderer>();
-		//render.material.shader =  ;
-		render.material.color = Color.white;
-
-
-		Mesh mesh = go.GetComponent<MeshFilter> ().mesh;
-		//mesh.triangles = 
-		//mesh.vertices = mesh 
-		List<Vector3> vertices = new List<Vector3> ();
-		List<int> triangles = new List<int> ();
-		for (int i = 0; i < 6; i++) {
-			//MakeFace (i, scale, pos);
-			//vertices.AddRange (CubeMeshData.faceVertices (i, scale, localPos));
-			vertices.AddRange(CubeMeshData.faceVerticesRight(i, scale, localPos));
+			vertices.AddRange(CubeMeshData.faceVerticesWithOffset(i, scale, localPos, leftOffsetVertices, offsets));
 			int vCount = vertices.Count;
 			triangles.Add (vCount -4 + 0);
 			triangles.Add (vCount -4 + 1);

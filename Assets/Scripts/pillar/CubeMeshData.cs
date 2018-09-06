@@ -71,43 +71,40 @@ public static class CubeMeshData {
     }
 
 
-    public static Vector3[] faceVerticesLeft(int dir, float scale, Vector3 pos, int x1 = 8, int x2 =8, float offset1 = 0, float offset2 = 0 )
+	public static Vector3[] faceVerticesWithOffset(int dir, float scale, Vector3 pos, int[] offsetIndex =null, float[] offsets  = null )
     {
-//        Debug.Log("scale," + scale + "===========pos:" + pos);
-        Vector3[] fv = new Vector3[4];
-        for (int i = 0; i < fv.Length; i++)
-        {
-        	if(faceTriangles[dir][i] == 0 || faceTriangles[dir][i] ==5){
-        		fv[i].x = (CubeMeshData.vertices()[faceTriangles[dir][i]].x * scale) + pos.x +  ;
-						fv[i].y = (CubeMeshData.vertices()[faceTriangles[dir][i]].y * 1f) + pos.y;
-						fv[i].z = (CubeMeshData.vertices()[faceTriangles[dir][i]].z * 1f) + pos.z;
-        	}else{
-        		fv[i].x = (CubeMeshData.vertices()[faceTriangles[dir][i]].x * scale) + pos.x;
-						fv[i].y = (CubeMeshData.vertices()[faceTriangles[dir][i]].y * 1f) + pos.y;
-						fv[i].z = (CubeMeshData.vertices()[faceTriangles[dir][i]].z * 1f) + pos.z;
-        	}
-        }
+////        Debug.Log("scale," + scale + "===========pos:" + pos);
+//        Vector3[] fv = new Vector3[4];
+//        for (int i = 0; i < fv.Length; i++)
+//        {
+//        	if(faceTriangles[dir][i] == 0 || faceTriangles[dir][i] ==5){
+//        		fv[i].x = (CubeMeshData.vertices()[faceTriangles[dir][i]].x * scale) + pos.x +  ;
+//						fv[i].y = (CubeMeshData.vertices()[faceTriangles[dir][i]].y * 1f) + pos.y;
+//						fv[i].z = (CubeMeshData.vertices()[faceTriangles[dir][i]].z * 1f) + pos.z;
+//        	}else{
+//        		fv[i].x = (CubeMeshData.vertices()[faceTriangles[dir][i]].x * scale) + pos.x;
+//						fv[i].y = (CubeMeshData.vertices()[faceTriangles[dir][i]].y * 1f) + pos.y;
+//						fv[i].z = (CubeMeshData.vertices()[faceTriangles[dir][i]].z * 1f) + pos.z;
+//        	}
+//        }
+//
+		//        Debug.Log("scale," + scale + "===========pos:" + pos);
+		Vector3[] fv = new Vector3[4];
+		for (int i = 0; i < fv.Length; i++)
+		{
+			//fv[i] = (vertices[faceTriangles[dir][i]] * scale) + pos;
+			fv[i].x = (CubeMeshData.vertices()[faceTriangles[dir][i]].x * scale) + pos.x;
+			fv[i].y = (CubeMeshData.vertices()[faceTriangles[dir][i]].y * 1f) + pos.y;
+			fv[i].z = (CubeMeshData.vertices()[faceTriangles[dir][i]].z * 1f) + pos.z;
+		}
+		if (offsets != null && offsets.Length > 0) {
+			for (int i = 0; i < offsets.Length; i++) {
+				fv [i].x += offsets[i]; 
+			}
+		}
         return fv;
     }
 
-    public static Vector3[] faceVerticesRight(int dir, float scale, Vector3 pos)
-    {
-//        Debug.Log("scale," + scale + "===========pos:" + pos);
-        Vector3[] fv = new Vector3[4];
-        for (int i = 0; i < fv.Length; i++)
-        {
-        	if(faceTriangles[dir][i] == 1 || faceTriangles[dir][i] == 4){
-        		fv[i].x = (CubeMeshData.vertices()[faceTriangles[dir][i]].x * scale) + pos.x + 0.1f;
-						fv[i].y = (CubeMeshData.vertices()[faceTriangles[dir][i]].y * 1f) + pos.y;
-						fv[i].z = (CubeMeshData.vertices()[faceTriangles[dir][i]].z * 1f) + pos.z;
-        	}else{
-        		fv[i].x = (CubeMeshData.vertices()[faceTriangles[dir][i]].x * scale) + pos.x;
-						fv[i].y = (CubeMeshData.vertices()[faceTriangles[dir][i]].y * 1f) + pos.y;
-						fv[i].z = (CubeMeshData.vertices()[faceTriangles[dir][i]].z * 1f) + pos.z;
-        	}
-        }
-        return fv;
-    }
 
     public static Vector3[] faceVertices(Direction dir, float scale, Vector3 pos){
 		return faceVertices((int)dir, scale, pos);

@@ -96,8 +96,6 @@ public class ProcedualPillar : MonoBehaviour
 
 		CubeMeshData.yThickness = 0.5f * Pillar_jh;
 		CubeMeshData.zThickness = 0.5f * Pillar_jw;
-		Debug.Log(CubeMeshData.yThickness);
-		Debug.Log(CubeMeshData.zThickness);
 		foreach(Transform child in RLKUtility.Room_pillar.transform)
 		{
 			Destroy(child.gameObject);
