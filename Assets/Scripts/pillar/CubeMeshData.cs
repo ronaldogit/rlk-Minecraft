@@ -5,23 +5,36 @@ using UnityEngine;
 public static class CubeMeshData {
 	public static float xThickness = 1f;    //柱子
 	public static float yThickness = 0.05f;
-	public static float zThickness = 0.1f;
+	public static float zThickness = 0.2f;
 
 //	public static float xThickness = 1f;    //柱子
 //	public static float yThickness = 0.5f;
 //	public static float zThickness = 0.1f;
 
-	public static Vector3 [] vertices = {
-		new Vector3( 1, 1f*yThickness, 		1f*zThickness),
-		new Vector3( -1, 1f*yThickness, 	1f*zThickness),
-		new Vector3( -1, -1f*yThickness,	1f*zThickness),
-		new Vector3( 1, -1f*yThickness, 	1f*zThickness),
-		new Vector3(-1, 1f*yThickness,     -1f*zThickness),
-		new Vector3(1, 1f*yThickness,      -1f*zThickness),
-		new Vector3(1, -1f*yThickness, 	   -1f*zThickness),
-		new Vector3(-1, -1f*yThickness,    -1f*zThickness),
+	// public static Vector3 [] vertices = {
+	// 	new Vector3( 1, 1f*yThickness, 		1f*zThickness),
+	// 	new Vector3( -1, 1f*yThickness, 	1f*zThickness),
+	// 	new Vector3( -1, -1f*yThickness,	1f*zThickness),
+	// 	new Vector3( 1, -1f*yThickness, 	1f*zThickness),
+	// 	new Vector3(-1, 1f*yThickness,     -1f*zThickness),
+	// 	new Vector3(1, 1f*yThickness,      -1f*zThickness),
+	// 	new Vector3(1, -1f*yThickness, 	   -1f*zThickness),
+	// 	new Vector3(-1, -1f*yThickness,    -1f*zThickness),
 
-	};
+	// };
+
+	public static Vector3[] vertices(){
+		Vector3[] fv = new Vector3[8];
+		fv[0]	= new Vector3 (1, 1f * yThickness, 1f * zThickness);
+		fv[1]	=	new Vector3 (-1, 1f * yThickness, 1f * zThickness);
+		fv[2]	=	new Vector3 (-1, -1f * yThickness,	1f * zThickness);
+		fv[3]	=	new Vector3( 1, -1f*yThickness, 	1f*zThickness);
+		fv[4]	=	new Vector3 (-1, 1f * yThickness, -1f * zThickness);
+		fv[5]	=	new Vector3 (1, 1f * yThickness, -1f * zThickness);
+		fv[6]	=	new Vector3 (1, -1f * yThickness, -1f * zThickness);
+		fv[7]	=	new Vector3 (-1, -1f * yThickness, -1f * zThickness);
+		return fv;
+	}
 
 	//can be seen
 	public static int[][] faceTriangles = {
@@ -37,7 +50,7 @@ public static class CubeMeshData {
 //		Debug.Log ("scale," + scale + "===========pos:" + pos);
 		Vector3[] fv = new Vector3[4];
 		for (int i = 0; i < fv.Length; i++) {
-			fv [i] = (vertices[faceTriangles[dir][i]] * scale) + pos;
+			fv [i] = (CubeMeshData.vertices()[faceTriangles[dir][i]] * scale) + pos;
 		}
 		return fv;
 	}
@@ -50,9 +63,29 @@ public static class CubeMeshData {
         for (int i = 0; i < fv.Length; i++)
         {
             //fv[i] = (vertices[faceTriangles[dir][i]] * scale) + pos;
-            fv[i].x = (vertices[faceTriangles[dir][i]].x * scale) + pos.x;
-            fv[i].y = (vertices[faceTriangles[dir][i]].y * 1f) + pos.y;
-            fv[i].z = (vertices[faceTriangles[dir][i]].z * 1f) + pos.z;
+			fv[i].x = (CubeMeshData.vertices()[faceTriangles[dir][i]].x * scale) + pos.x;
+			fv[i].y = (CubeMeshData.vertices()[faceTriangles[dir][i]].y * 1f) + pos.y;
+			fv[i].z = (CubeMeshData.vertices()[faceTriangles[dir][i]].z * 1f) + pos.z;
+        }
+        return fv;
+    }
+
+
+    public static Vector3[] faceVertices4(int dir, float scale, Vector3 pos)
+    {
+//        Debug.Log("scale," + scale + "===========pos:" + pos);
+        Vector3[] fv = new Vector3[4];
+        for (int i = 0; i < fv.Length; i++)
+        {
+        	if(faceTriangles[dir][i] == 0 || faceTriangles[dir][i] ==5){
+        		fv[i].x = (CubeMeshData.vertices()[faceTriangles[dir][i]].x * scale) + pos.x + 0.1f;
+						fv[i].y = (CubeMeshData.vertices()[faceTriangles[dir][i]].y * 1f) + pos.y;
+						fv[i].z = (CubeMeshData.vertices()[faceTriangles[dir][i]].z * 1f) + pos.z;
+        	}else{
+        		fv[i].x = (CubeMeshData.vertices()[faceTriangles[dir][i]].x * scale) + pos.x;
+						fv[i].y = (CubeMeshData.vertices()[faceTriangles[dir][i]].y * 1f) + pos.y;
+						fv[i].z = (CubeMeshData.vertices()[faceTriangles[dir][i]].z * 1f) + pos.z;
+        	}
         }
         return fv;
     }

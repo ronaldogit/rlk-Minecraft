@@ -372,7 +372,19 @@ public class PillarData {
 
 	public void  draw()
 	{
-		for (int i = 0; i < this.sideLens.Length; i++)
+		for (int i = 0; i < 2; i++)
+		{
+			float len = (float)this.sideLens[i];
+			//			Debug.Log ("len " + len + " i=  " + i);
+			GameObject go =MakeCube2(len, Vector3.zero);
+			go.name = go.name + i + "..";
+			go.transform.position = go.transform.position + this.centerSidePositions[i];
+			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
+
+			go.transform.parent = RLKUtility.Room_pillar.transform;
+		}
+
+		for (int i = 2; i < this.sideLens.Length; i++)
 		{
 			float len = (float)this.sideLens[i];
 			//			Debug.Log ("len " + len + " i=  " + i);
@@ -383,7 +395,6 @@ public class PillarData {
 
 			go.transform.parent = RLKUtility.Room_pillar.transform;
 		}
-
 
 		for (int i = 0; i < this.sideInnerLens.Length; i++)
 		{
@@ -432,4 +443,37 @@ public class PillarData {
 		return go;
 	}
 
+		public GameObject MakeCube2(float scale, Vector3 localPos){
+		//        Debug.Log(localPos);
+		GameObject go = new GameObject("game");
+		go.AddComponent<MeshFilter> ();
+		MeshRenderer render =  go.AddComponent<MeshRenderer>();
+		//render.material.shader =  ;
+		render.material.color = Color.white;
+
+
+		Mesh mesh = go.GetComponent<MeshFilter> ().mesh;
+		//mesh.triangles = 
+		//mesh.vertices = mesh 
+		List<Vector3> vertices = new List<Vector3> ();
+		List<int> triangles = new List<int> ();
+		for (int i = 0; i < 6; i++) {
+			//MakeFace (i, scale, pos);
+			//vertices.AddRange (CubeMeshData.faceVertices (i, scale, localPos));
+			vertices.AddRange(CubeMeshData.faceVertices4(i, scale, localPos));
+			int vCount = vertices.Count;
+			triangles.Add (vCount -4 + 0);
+			triangles.Add (vCount -4 + 1);
+			triangles.Add (vCount -4 + 2);
+			triangles.Add (vCount -4 + 0);
+			triangles.Add (vCount -4 + 2);
+			triangles.Add (vCount -4 + 3);
+		}
+		mesh.Clear ();
+		mesh.vertices = vertices.ToArray ();
+		mesh.triangles = triangles.ToArray ();
+		mesh.RecalculateNormals ();
+		//Debug.Log(go.GetComponent<MeshCollider>().bounds);
+		return go;
+	}
 }

@@ -94,9 +94,10 @@ public class ProcedualPillar : MonoBehaviour
 		Pillar_gjposition = ConvertStrToVector3(Pillar_InputField_gjposition.text);
 		Pillar_gjnum = int.Parse(Pillar_InputField_gjnum.text);
 
-//		CubeMeshData.yThickness = Pillar_jh;
-//		CubeMeshData.zThickness = Pillar_jw;
-
+		CubeMeshData.yThickness = 0.5f * Pillar_jh;
+		CubeMeshData.zThickness = 0.5f * Pillar_jw;
+		Debug.Log(CubeMeshData.yThickness);
+		Debug.Log(CubeMeshData.zThickness);
 		foreach(Transform child in RLKUtility.Room_pillar.transform)
 		{
 			Destroy(child.gameObject);
