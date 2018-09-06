@@ -182,24 +182,42 @@ public class PillarData {
 	public Vector3[] sideInnerCenters{
 		get{ 
 			return new Vector3[]{
-				new Vector3(-(0.95f * 0.5f * this.width),   0.5f * this.centerHs[0], 0f),
-				new Vector3(-(0.85f * 0.5f * this.width),   0.5f * this.centerHs[0], 0f),
-				new Vector3(-(0.75f * 0.5f * this.width),   0.5f * this.centerHs[1], 0f),
-				new Vector3(-(0.65f * 0.5f * this.width),   0.5f * this.centerHs[1], 0f),
-				new Vector3(-(0.55f * 0.5f * this.width),   0.5f * this.centerHs[2], 0f),
-				new Vector3(-(0.45f * 0.5f * this.width),   0.5f * this.centerHs[2], 0f),
-				new Vector3(-(0.35f * 0.5f * this.width),   0.5f * this.centerHs[3], 0f),
-				new Vector3(-(0.25f * 0.5f * this.width),   0.5f * this.centerHs[3], 0f),
+				// new Vector3(-(0.95f * 0.5f * this.width) + CubeMeshData.yThickness,   0.5f * this.centerHs[0], 0f),
+				// new Vector3(-(0.85f * 0.5f * this.width) + CubeMeshData.yThickness,   0.5f * this.centerHs[0], 0f),
+				// new Vector3(-(0.75f * 0.5f * this.width) + CubeMeshData.yThickness,   0.5f * this.centerHs[1], 0f),
+				// new Vector3(-(0.65f * 0.5f * this.width) + CubeMeshData.yThickness,   0.5f * this.centerHs[1], 0f),
+				// new Vector3(-(0.55f * 0.5f * this.width) + CubeMeshData.yThickness,   0.5f * this.centerHs[2], 0f),
+				// new Vector3(-(0.45f * 0.5f * this.width) + CubeMeshData.yThickness,   0.5f * this.centerHs[2], 0f),
+				// new Vector3(-(0.35f * 0.5f * this.width) + CubeMeshData.yThickness,   0.5f * this.centerHs[3], 0f),
+				// new Vector3(-(0.25f * 0.5f * this.width) + CubeMeshData.yThickness,   0.5f * this.centerHs[3], 0f),
+				// new Vector3(-(0.10f * 0.5f * this.width) + CubeMeshData.yThickness,  0.5f * this.heigth, 0f),
+				// new Vector3((0.10f * 0.5f * this.width) - CubeMeshData.yThickness,   0.5f * this.heigth, 0f),
+				// new Vector3((0.25f * 0.5f * this.width) - CubeMeshData.yThickness,   0.5f * this.centerHs[3], 0f),
+				// new Vector3((0.35f * 0.5f * this.width) - CubeMeshData.yThickness,   0.5f * this.centerHs[3], 0f),
+				// new Vector3((0.45f * 0.5f * this.width) - CubeMeshData.yThickness,   0.5f * this.centerHs[2], 0f),
+				// new Vector3((0.55f * 0.5f * this.width) - CubeMeshData.yThickness,   0.5f * this.centerHs[2], 0f),
+				// new Vector3((0.65f * 0.5f * this.width) - CubeMeshData.yThickness,   0.5f * this.centerHs[1], 0f),
+				// new Vector3((0.75f * 0.5f * this.width) - CubeMeshData.yThickness,   0.5f * this.centerHs[1], 0f),
+				// new Vector3((0.85f * 0.5f * this.width) - CubeMeshData.yThickness,   0.5f * this.centerHs[0], 0f),
+				// new Vector3((0.95f * 0.5f * this.width) - CubeMeshData.yThickness,   0.5f * this.centerHs[0], 0f)
+				new Vector3(-(0.95f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[0], 0f),
+				new Vector3(-(0.85f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[0], 0f),
+				new Vector3(-(0.75f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[1], 0f),
+				new Vector3(-(0.65f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[1], 0f),
+				new Vector3(-(0.55f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[2], 0f),
+				new Vector3(-(0.45f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[2], 0f),
+				new Vector3(-(0.35f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[3], 0f),
+				new Vector3(-(0.25f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[3], 0f),
 				new Vector3(-(0.10f * 0.5f * this.width),  0.5f * this.heigth, 0f),
 				new Vector3((0.10f * 0.5f * this.width),   0.5f * this.heigth, 0f),
-				new Vector3((0.25f * 0.5f * this.width),   0.5f * this.centerHs[3], 0f),
-				new Vector3((0.35f * 0.5f * this.width),   0.5f * this.centerHs[3], 0f),
-				new Vector3((0.45f * 0.5f * this.width),   0.5f * this.centerHs[2], 0f),
-				new Vector3((0.55f * 0.5f * this.width),   0.5f * this.centerHs[2], 0f),
-				new Vector3((0.65f * 0.5f * this.width),   0.5f * this.centerHs[1], 0f),
-				new Vector3((0.75f * 0.5f * this.width),   0.5f * this.centerHs[1], 0f),
-				new Vector3((0.85f * 0.5f * this.width),   0.5f * this.centerHs[0], 0f),
-				new Vector3((0.95f * 0.5f * this.width),   0.5f * this.centerHs[0], 0f)
+				new Vector3((0.25f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[3], 0f),
+				new Vector3((0.35f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[3], 0f),
+				new Vector3((0.45f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[2], 0f),
+				new Vector3((0.55f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[2], 0f),
+				new Vector3((0.65f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[1], 0f),
+				new Vector3((0.75f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[1], 0f),
+				new Vector3((0.85f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[0], 0f),
+				new Vector3((0.95f * 0.5f * this.width - CubeMeshData.yThickness),   0.5f * this.centerHs[0], 0f)
 
 //				new Vector3{},
 			};
@@ -296,17 +314,17 @@ public class PillarData {
 //				new Vector3 ((0.25f * this.width + 1f* Mathf.Sin(this.angle)), 0.5f * this.heigth + 1f* Mathf.Cos(this.angle), 0f),
 				new Vector3 (0f, 0f, 0f),
 				new Vector3 (0f, this.heigth * 0.5f, 0f),
-				new Vector3 (-0.5f* this.width,  this.sideLens[4], 0f),
-				new Vector3 (-0.4f* this.width,  this.sideLens[5], 0f),
-				new Vector3 (-0.3f* this.width,  this.sideLens[6], 0f),
-				new Vector3 (-0.2f* this.width,  this.sideLens[7], 0f),
-				new Vector3 (-0.1f* this.width,  this.sideLens[8], 0f),
+				new Vector3 (-0.5f* this.width + CubeMeshData.yThickness,  this.sideLens[4], 0f),
+				new Vector3 (-0.4f* this.width + CubeMeshData.yThickness,  this.sideLens[5], 0f),
+				new Vector3 (-0.3f* this.width + CubeMeshData.yThickness,  this.sideLens[6], 0f),
+				new Vector3 (-0.2f* this.width + CubeMeshData.yThickness,  this.sideLens[7], 0f),
+				new Vector3 (-0.1f* this.width + CubeMeshData.yThickness,  this.sideLens[8], 0f),
 
-				new Vector3 (0.1f* this.width,  this.sideLens[9] , 0f),
-				new Vector3 (0.2f* this.width,  this.sideLens[10], 0f),
-				new Vector3 (0.3f* this.width,  this.sideLens[11], 0f),
-				new Vector3 (0.4f* this.width,  this.sideLens[12], 0f),
-				new Vector3 (0.5f* this.width,  this.sideLens[13], 0f),
+				new Vector3 (0.1f* this.width - CubeMeshData.yThickness,  this.sideLens[9] , 0f),
+				new Vector3 (0.2f* this.width - CubeMeshData.yThickness,  this.sideLens[10], 0f),
+				new Vector3 (0.3f* this.width - CubeMeshData.yThickness,  this.sideLens[11], 0f),
+				new Vector3 (0.4f* this.width - CubeMeshData.yThickness,  this.sideLens[12], 0f),
+				new Vector3 (0.5f* this.width - CubeMeshData.yThickness,  this.sideLens[13], 0f),
 
             };
 		}
@@ -372,7 +390,20 @@ public class PillarData {
 
 	public void  draw()
 	{
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < 1; i++)
+		{
+			float len = (float)this.sideLens[i];
+			//			Debug.Log ("len " + len + " i=  " + i);
+			GameObject go =MakeCube1(len, Vector3.zero);
+			go.name = go.name + i + "..";
+			go.transform.position = go.transform.position + this.centerSidePositions[i];
+			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
+
+			go.transform.parent = RLKUtility.Room_pillar.transform;
+		}
+
+
+		for (int i = 1; i < 2; i++)
 		{
 			float len = (float)this.sideLens[i];
 			//			Debug.Log ("len " + len + " i=  " + i);
@@ -443,7 +474,7 @@ public class PillarData {
 		return go;
 	}
 
-		public GameObject MakeCube2(float scale, Vector3 localPos){
+	public GameObject MakeCubeLeft(float scale, Vector3 localPos){
 		//        Debug.Log(localPos);
 		GameObject go = new GameObject("game");
 		go.AddComponent<MeshFilter> ();
@@ -460,7 +491,41 @@ public class PillarData {
 		for (int i = 0; i < 6; i++) {
 			//MakeFace (i, scale, pos);
 			//vertices.AddRange (CubeMeshData.faceVertices (i, scale, localPos));
-			vertices.AddRange(CubeMeshData.faceVertices4(i, scale, localPos));
+			vertices.AddRange(CubeMeshData.faceVerticesLeft(i, scale, localPos));
+			int vCount = vertices.Count;
+			triangles.Add (vCount -4 + 0);
+			triangles.Add (vCount -4 + 1);
+			triangles.Add (vCount -4 + 2);
+			triangles.Add (vCount -4 + 0);
+			triangles.Add (vCount -4 + 2);
+			triangles.Add (vCount -4 + 3);
+		}
+		mesh.Clear ();
+		mesh.vertices = vertices.ToArray ();
+		mesh.triangles = triangles.ToArray ();
+		mesh.RecalculateNormals ();
+		//Debug.Log(go.GetComponent<MeshCollider>().bounds);
+		return go;
+	}
+
+	public GameObject MakeCubeRight(float scale, Vector3 localPos){
+		//        Debug.Log(localPos);
+		GameObject go = new GameObject("game");
+		go.AddComponent<MeshFilter> ();
+		MeshRenderer render =  go.AddComponent<MeshRenderer>();
+		//render.material.shader =  ;
+		render.material.color = Color.white;
+
+
+		Mesh mesh = go.GetComponent<MeshFilter> ().mesh;
+		//mesh.triangles = 
+		//mesh.vertices = mesh 
+		List<Vector3> vertices = new List<Vector3> ();
+		List<int> triangles = new List<int> ();
+		for (int i = 0; i < 6; i++) {
+			//MakeFace (i, scale, pos);
+			//vertices.AddRange (CubeMeshData.faceVertices (i, scale, localPos));
+			vertices.AddRange(CubeMeshData.faceVerticesRight(i, scale, localPos));
 			int vCount = vertices.Count;
 			triangles.Add (vCount -4 + 0);
 			triangles.Add (vCount -4 + 1);
