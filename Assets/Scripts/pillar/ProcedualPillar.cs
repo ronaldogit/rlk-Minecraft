@@ -102,10 +102,20 @@ public class ProcedualPillar : MonoBehaviour
 		}
 		Resources.UnloadUnusedAssets();
 
+		if (Pillar_slnum % 2 == 1 && Pillar_slnum < 9) {
+			
+		} else {
+			Pillar_slnum = 9;
+		}
+		Debug.Log (Pillar_slnum);
 //		PillarData p = new PillarData (12f,1f,2f);
-		PillarData p = new PillarData (Pillar_w,Pillar_h1,Pillar_h2);
-
-		p.draw ();		
+		PillarData p = new PillarData (Pillar_w, Pillar_h1, Pillar_h2);
+		if (Pillar_slnum == 9) {
+			p.draw ();
+		} else {
+			p.drawByNum ( Pillar_slnum);	
+		}
+			
 	}
 
 

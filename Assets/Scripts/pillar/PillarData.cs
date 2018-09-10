@@ -544,4 +544,59 @@ public class PillarData {
 		//Debug.Log(go.GetComponent<MeshCollider>().bounds);
 		return go;
 	}
+
+
+	public void  drawByNum( int num)
+	{
+		Debug.Log ("=====drawByNum=====" + num);
+		for (int i = 0; i < 1; i++)
+		{
+			float len = (float)this.sideLens[i];
+			//			Debug.Log ("len " + len + " i=  " + i);
+			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.leftOffsetVertices, this.leftOffsets);
+			go.name = go.name + i + "..";
+			go.transform.position = go.transform.position + this.centerSidePositions[i];
+			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
+
+			go.transform.parent = RLKUtility.Room_pillar.transform;
+		}
+
+
+		for (int i = 1; i < 2; i++)
+		{
+			float len = (float)this.sideLens[i];
+			//			Debug.Log ("len " + len + " i=  " + i);
+			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.rightOffsetVertices, this.rightOffsets);
+			go.name = go.name + i + "..";
+			go.transform.position = go.transform.position + this.centerSidePositions[i];
+			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
+
+			go.transform.parent = RLKUtility.Room_pillar.transform;
+		}
+
+		for (int i = 2; i < this.sideLens.Length; i++)
+		{
+			float len = (float)this.sideLens[i];
+			//			Debug.Log ("len " + len + " i=  " + i);
+			GameObject go =MakeCube(len, Vector3.zero);
+			go.name = go.name + i + "..";
+			go.transform.position = go.transform.position + this.centerSidePositions[i];
+			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
+
+			go.transform.parent = RLKUtility.Room_pillar.transform;
+		}
+
+//s		//构造内部斜边
+//		for (int i = 0; i < this.sideInnerLens.Length; i++)
+//		{
+//			float len = (float)this.sideInnerLens[i];
+//			//			Debug.Log ("len " + len + " i=  " + i);
+//			GameObject go =MakeCube(0.5f*len, Vector3.zero);
+//			go.name = go.name + i + "...";
+//			go.transform.position = go.transform.position + this.sideInnerCenters[i];
+//			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localInnerRotations[i]);
+//
+//			go.transform.parent = RLKUtility.Room_pillar.transform;
+//		}
+	}
 }

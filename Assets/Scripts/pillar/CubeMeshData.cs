@@ -71,7 +71,7 @@ public static class CubeMeshData {
     }
 
 
-	public static Vector3[] faceVerticesWithOffset(int dir, float scale, Vector3 pos, int[] offsetIndex =null, float[] offsets  = null )
+	public static Vector3[] faceVerticesWithOffset(int dir, float lenScale, Vector3 pos, int[] offsetIndex =null, float[] offsets  = null )
     {
 ////        Debug.Log("scale," + scale + "===========pos:" + pos);
 //        Vector3[] fv = new Vector3[4];
@@ -93,7 +93,7 @@ public static class CubeMeshData {
 		for (int i = 0; i < fv.Length; i++)
 		{
 			//fv[i] = (vertices[faceTriangles[dir][i]] * scale) + pos;
-			fv[i].x = (CubeMeshData.vertices()[faceTriangles[dir][i]].x * scale) + pos.x;
+			fv[i].x = (CubeMeshData.vertices()[faceTriangles[dir][i]].x * lenScale) + pos.x;
 			fv[i].y = (CubeMeshData.vertices()[faceTriangles[dir][i]].y * 1f) + pos.y;
 			fv[i].z = (CubeMeshData.vertices()[faceTriangles[dir][i]].z * 1f) + pos.z;
 		}
