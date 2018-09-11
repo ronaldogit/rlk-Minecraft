@@ -264,7 +264,23 @@ public class PillarData {
 	}
 
 
+	public float[] centerHs5{
+		get { 
+			return new float[] {
+				this.heigth - this.heigth0  + 0.5f * 0.5f * this.width / 2f * Mathf.Tan(this.angle),		
+			};
+	  }
+	}
 
+
+	public float[] centerHs7{
+		get { 
+			return new float[] {
+				this.heigth - this.heigth0  + 0.5f * 0.5f * this.width / 3f * Mathf.Tan(this.angle),	
+				this.heigth - this.heigth0  + 3 * (0.5f * 0.5f * this.width / 3f)  * Mathf.Tan(this.angle),	
+			};
+	  }
+	}
 
 	//左边5个角度
 	public float[] anglesInner{
@@ -551,7 +567,7 @@ public class PillarData {
 		Debug.Log ("=====drawByNum=====" + num);
 		for (int i = 0; i < 1; i++)
 		{
-			float len = (float)this.sideLens[i];
+			float len = (float)this.sideLensByNum[i];
 			//			Debug.Log ("len " + len + " i=  " + i);
 			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.leftOffsetVertices, this.leftOffsets);
 			go.name = go.name + i + "..";
@@ -564,7 +580,7 @@ public class PillarData {
 
 		for (int i = 1; i < 2; i++)
 		{
-			float len = (float)this.sideLens[i];
+			float len = (float)this.sideLensByNum[i];
 			//			Debug.Log ("len " + len + " i=  " + i);
 			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.rightOffsetVertices, this.rightOffsets);
 			go.name = go.name + i + "..";
@@ -574,9 +590,9 @@ public class PillarData {
 			go.transform.parent = RLKUtility.Room_pillar.transform;
 		}
 
-		for (int i = 2; i < this.sideLens.Length; i++)
+		for (int i = 2; i < this.sideLensByNum.Length; i++)
 		{
-			float len = (float)this.sideLens[i];
+			float len = (float)this.sideLensByNum[i];
 			//			Debug.Log ("len " + len + " i=  " + i);
 			GameObject go =MakeCube(len, Vector3.zero);
 			go.name = go.name + i + "..";
@@ -599,4 +615,116 @@ public class PillarData {
 //			go.transform.parent = RLKUtility.Room_pillar.transform;
 //		}
 	}
+
+	//共用的边长 两个竖边
+	public float[] sideLensByNum{
+    get
+    {
+//			Debug.Log ("len=-=============");
+//			Debug.Log (this.angle);
+//			Debug.Log (Mathf.Tan(this.angle ));
+//			Debug.Log (Mathf.Sin(this.angle));
+//			Debug.Log ("heigth0" + this.heigth0);
+//			Debug.Log ("leftH1" + this.leftH1);
+        return new float[] {
+          0.5f * (heigth0 / Mathf.Sin(this.angle)),
+          0.5f * (heigth0 / Mathf.Sin(this.angle)),
+          0.5f * this.width,
+          0.5f * this.heigth,
+          //左边的各个竖立边的长度
+					0.5f * (this.heigth - this.heigth0),		                                        //4
+					// 0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*1),    //5
+					// 0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*2),    //6
+					// 0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*3),    //7
+					// 0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*4),    //8
+					// 0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*4),    //9
+					// 0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*3),    //10
+					// 0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*2),    //11
+					// 0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*1),    //12
+					0.5f * (this.heigth - this.heigth0)                                             	//13
+            //右边的各个竖立边长度
+			};
+    }
+  }
+
+  //除了共用的竖边
+	public float[] heighsByNum(int num){
+		switch(num)
+		{
+			case 1:
+				return this.heighsByNum1;
+				break;
+			case 3:
+				break;
+			case 5:
+				break;
+			case 7:
+				break;
+			default:
+				Debug.log("==arg invalid======")
+				break;
+		}
+  }
+
+  //左边1个角角度
+	public float[] anglesInner3{
+		get{ 
+			return new float[] {
+				Mathf.Atan2 (this.heigth, 0.5f * this.width)
+			};
+		}
+	}
+
+
+	//左边2个角角度
+	public float[] anglesInner5{
+		get{ 
+			return new float[] {
+				Mathf.Atan2 (this.centerHs5 [0], 0.5f * 0.5f / 2f * this.width),
+				Mathf.Atan2 (this.heigth, 0.5f * 0.5f * this.width)
+			};
+		}
+	}
+
+	//左边3个角角度
+	public float[] anglesInner7{
+		get{ 
+			return new float[] {
+				Mathf.Atan2 (this.centerHs7 [0], 0.5f * 0.5f / 3f * this.width),
+				Mathf.Atan2 (this.centerHs7 [1], 0.5f * 0.5f / 3f * this.width),
+				Mathf.Atan2 (this.heigth,   0.5f / 3f * this.width)
+			};
+		}
+	}
+
+  	public float[] heighsByNum1{
+    get
+    {
+//			Debug.Log ("len=-=============");
+//			Debug.Log (this.angle);
+//			Debug.Log (Mathf.Tan(this.angle ));
+//			Debug.Log (Mathf.Sin(this.angle));
+//			Debug.Log ("heigth0" + this.heigth0);
+//			Debug.Log ("leftH1" + this.leftH1);
+        return new float[] {
+          0.5f * (heigth0 / Mathf.Sin(this.angle)),
+          0.5f * (heigth0 / Mathf.Sin(this.angle)),
+          0.5f * this.width,
+          0.5f * this.heigth,
+          //左边的各个竖立边的长度
+					0.5f * (this.heigth - this.heigth0),		                                        //4
+					0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*1),    //5
+					0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*2),    //6
+					0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*3),    //7
+					0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*4),    //8
+					0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*4),    //9
+					0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*3),    //10
+					0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*2),    //11
+					0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*1),    //12
+					0.5f * (this.heigth - this.heigth0)                                             	//13
+            //右边的各个竖立边长度
+			};
+    }
+  }
+
 }
