@@ -250,8 +250,8 @@ public class PillarData {
 		}
 	}
 
-	//四个边辅助线的位置
-
+	//四个边辅助线的位置 ceterHs为辅助线的高度也是x轴向的长度
+	//十一柱子时候(除去两端的剩余9个柱子)
 	public float[] centerHs{
 		get { 
 			return new float[] {
@@ -264,10 +264,19 @@ public class PillarData {
 	}
 
 
+	public float[] centerHs1{
+		get { 
+			return new float[] {
+				this.heigth		
+			};
+	  }
+	}
+
 	public float[] centerHs3{
 		get { 
 			return new float[] {
-				this.heigth - this.heigth0  + 0.5f * 0.5f * this.width / 2f * Mathf.Tan(this.angle),		
+				this.heigth - this.heigth0  + 0.5f * 0.5f * this.width / 2f * Mathf.Tan(this.angle),
+				this.heigth
 			};
 	  }
 	}
@@ -281,6 +290,30 @@ public class PillarData {
 			};
 	  }
 	}
+
+
+	public float[] centerHs7{
+		get { 
+			return new float[] {
+				this.heigth - this.heigth0  + 0.5f * 0.5f * this.width / 4f * Mathf.Tan(this.angle),	
+				this.heigth - this.heigth0  + 3 * (0.5f * 0.5f * this.width / 4f)  * Mathf.Tan(this.angle),	
+				this.heigth - this.heigth0  + 5 * (0.5f * 0.5f * this.width / 4f)  * Mathf.Tan(this.angle),	
+			};
+	  }
+	}
+
+	public float[] centerHs9{
+		get { 
+			return new float[] {
+				this.heigth - this.heigth0  + 1 * (0.5f * 0.5f * this.width / 5f) * Mathf.Tan(this.angle),	
+				this.heigth - this.heigth0  + 3 * (0.5f * 0.5f * this.width / 5f) * Mathf.Tan(this.angle),	
+				this.heigth - this.heigth0  + 5 * (0.5f * 0.5f * this.width / 5f) * Mathf.Tan(this.angle),
+				this.heigth - this.heigth0  + 7 * (0.5f * 0.5f * this.width / 5f) * Mathf.Tan(this.angle),	
+			};
+	  }
+	}
+
+
 
 	//左边5个角度
 	public float[] anglesInner{
@@ -666,7 +699,7 @@ public class PillarData {
 		}
   }
 
-  //左边1个角角度
+  //左边1个角角度（不算两侧的一个柱子）
 	public float[] anglesInner1{
 		get{ 
 			return new float[] {
@@ -676,50 +709,50 @@ public class PillarData {
 	}
 
 
-	//左边2个角角度
+	//左边2个角角度（不算两侧的3个柱子）
 	public float[] anglesInner3{
 		get{ 
 			return new float[] {
-				Mathf.Atan2 (this.centerHs5 [0], 0.5f * 0.5f / 2f * this.width),
-				Mathf.Atan2 (this.heigth, 0.5f * 0.5f * this.width)
+				Mathf.Atan2 (this.centerHs3[0], 0.5f * 0.5f / 2f * this.width),
+				Mathf.Atan2 (this.heigth, 0.5f * this.width / 2f)
 			};
 		}
 	}
 
-	//左边3个角角度
+	//左边3个角角度（不算两侧的5个柱子）
 	public float[] anglesInner5{
 		get{ 
 			return new float[] {
-				Mathf.Atan2 (this.centerHs7 [0], 0.5f * 0.5f / 3f * this.width),
-				Mathf.Atan2 (this.centerHs7 [1], 0.5f * 0.5f / 3f * this.width),
-				Mathf.Atan2 (this.heigth,   0.5f / 3f * this.width)
+				Mathf.Atan2 (this.centerHs5[0], 0.5f * 0.5f / 3f * this.width),
+				Mathf.Atan2 (this.centerHs5[1], 0.5f * 0.5f / 3f * this.width),
+				Mathf.Atan2 (this.heigth,   0.5f * this.width / 3f)
 			};
 		}
 	}
 
 
-	//左边4个角角度
+	//左边4个角角度 （不算两侧的7个柱子）
 	public float[] anglesInner7{
 		get{ 
 			return new float[] {
 				Mathf.Atan2 (this.centerHs7 [0], 0.5f * 0.5f / 4f * this.width),
 				Mathf.Atan2 (this.centerHs7 [1], 0.5f * 0.5f / 4f * this.width),
 				Mathf.Atan2 (this.centerHs7 [2], 0.5f * 0.5f / 4f * this.width),
-				Mathf.Atan2 (this.heigth,   0.5f / 4f * this.width)
+				Mathf.Atan2 (this.heigth,   0.5f * this.width / 4f)
 			};
 		}
 	}
 
 
-		//左边5个角角度
+		//左边5个角角度（不算两侧的9个柱子）
 	public float[] anglesInner9{
 		get{ 
 			return new float[] {
 				Mathf.Atan2 (this.centerHs9 [0], 0.5f * 0.5f / 5f * this.width),
 				Mathf.Atan2 (this.centerHs9 [1], 0.5f * 0.5f / 5f * this.width),
 				Mathf.Atan2 (this.centerHs9 [2], 0.5f * 0.5f / 5f * this.width),
-				Mathf.Atan2 (this.centerHs9 [2], 0.5f * 0.5f / 5f * this.width),
-				Mathf.Atan2 (this.heigth,   0.5f / 4f * this.width)
+				Mathf.Atan2 (this.centerHs9 [3], 0.5f * 0.5f / 5f * this.width),
+				Mathf.Atan2 (this.heigth,   0.5f * this.width / 5f)
 			};
 		}
 	}
