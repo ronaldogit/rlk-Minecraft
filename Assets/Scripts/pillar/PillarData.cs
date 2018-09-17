@@ -380,6 +380,33 @@ public class PillarData {
 	}
 
 
+	//中心坐标 计算平移值
+	public Vector3[] centerSidePositionsByNum{
+		get { 
+			return new Vector3[] {
+				//new Vector3 (-(0.25f * this.width + 1f* Mathf.Sin(this.angle)), 0.5f * this.heigth + 1f* Mathf.Cos(this.angle), 0f),
+				new Vector3 (-(this.sideLens[0] * Mathf.Cos(this.angle)  + CubeMeshData.yThickness * Mathf.Sin(this.angle)),  this.heigth - this.heigth0 + 0.5f * this.heigth0 + CubeMeshData.yThickness * Mathf.Cos(this.angle), 0f),
+				new Vector3 ((this.sideLens[0] * Mathf.Cos(this.angle)  + CubeMeshData.yThickness * Mathf.Sin(this.angle)),  this.heigth - this.heigth0 + 0.5f * this.heigth0 + CubeMeshData.yThickness * Mathf.Cos(this.angle), 0f),
+
+				//new Vector3 ((0.25f * this.width + 1f* Mathf.Sin(this.angle)), 0.5f * this.heigth + 1f* Mathf.Cos(this.angle), 0f),
+				new Vector3 (0f, 0f, 0f),
+//				new Vector3 (0f, this.heigth * 0.5f, 0f),
+				new Vector3 (-0.5f* this.width + CubeMeshData.yThickness,  this.sideLens[4], 0f),
+//				new Vector3 (-0.4f* this.width + CubeMeshData.yThickness,  this.sideLens[5], 0f),
+//				new Vector3 (-0.3f* this.width + CubeMeshData.yThickness,  this.sideLens[6], 0f),
+//				new Vector3 (-0.2f* this.width + CubeMeshData.yThickness,  this.sideLens[7], 0f),
+//				new Vector3 (-0.1f* this.width + CubeMeshData.yThickness,  this.sideLens[8], 0f),
+//
+//				new Vector3 (0.1f* this.width - CubeMeshData.yThickness,  this.sideLens[9] , 0f),
+//				new Vector3 (0.2f* this.width - CubeMeshData.yThickness,  this.sideLens[10], 0f),
+//				new Vector3 (0.3f* this.width - CubeMeshData.yThickness,  this.sideLens[11], 0f),
+//				new Vector3 (0.4f* this.width - CubeMeshData.yThickness,  this.sideLens[12], 0f),
+				new Vector3 (0.5f* this.width - CubeMeshData.yThickness,  this.sideLens[13], 0f),
+
+			};
+		}
+	}
+
 
 //	public Vector3[] centerSidePositions{
 //		get { 
@@ -604,7 +631,7 @@ public class PillarData {
 			//			Debug.Log ("len " + len + " i=  " + i);
 			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.leftOffsetVertices, this.leftOffsets);
 			go.name = go.name + i + "..";
-			go.transform.position = go.transform.position + this.centerSidePositions[i];
+			go.transform.position = go.transform.position + this.centerSidePositionsByNum[i];
 			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
 
 			go.transform.parent = RLKUtility.Room_pillar.transform;
@@ -617,7 +644,7 @@ public class PillarData {
 			//			Debug.Log ("len " + len + " i=  " + i);
 			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.rightOffsetVertices, this.rightOffsets);
 			go.name = go.name + i + "..";
-			go.transform.position = go.transform.position + this.centerSidePositions[i];
+			go.transform.position = go.transform.position + this.centerSidePositionsByNum[i];
 			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
 
 			go.transform.parent = RLKUtility.Room_pillar.transform;
@@ -629,27 +656,35 @@ public class PillarData {
 			//			Debug.Log ("len " + len + " i=  " + i);
 			GameObject go =MakeCube(len, Vector3.zero);
 			go.name = go.name + i + "..";
-			go.transform.position = go.transform.position + this.centerSidePositions[i];
+			go.transform.position = go.transform.position + this.centerSidePositionsByNum[i];
 			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
 
 			go.transform.parent = RLKUtility.Room_pillar.transform;
 		}
 
-//s		//构造内部斜边
-//		for (int i = 0; i < this.sideInnerLens.Length; i++)
-//		{
-//			float len = (float)this.sideInnerLens[i];
-//			//			Debug.Log ("len " + len + " i=  " + i);
-//			GameObject go =MakeCube(0.5f*len, Vector3.zero);
-//			go.name = go.name + i + "...";
-//			go.transform.position = go.transform.position + this.sideInnerCenters[i];
-//			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localInnerRotations[i]);
-//
-//			go.transform.parent = RLKUtility.Room_pillar.transform;
-//		}
+		//构造内部斜边
+
+		float[] lens = this.heighsByNum (num);
+		Vector3[] center = this.centerHsByNum (num);
+		vector3[] rotations = this.localRotationsByNum (num);
+
+		for (int i = 0; i < this.sideInnerLens.Length; i++)
+		{
+			float len = (float)this.sideInnerLens[i];
+			//			Debug.Log ("len " + len + " i=  " + i);
+			GameObject go =MakeCube(0.5f*len, Vector3.zero);
+			go.name = go.name + i + "...";
+			go.transform.position = go.transform.position + this.sideInnerCenters[i];
+			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localInnerRotations[i]);
+
+			go.transform.parent = RLKUtility.Room_pillar.transform;
+		}
 	}
 
-	//共用的边长 两个竖边
+
+
+
+	//共用的边长 + 中间 高  + 最外侧的两个竖边
 	public float[] sideLensByNum{
     get
     {
@@ -663,7 +698,7 @@ public class PillarData {
           0.5f * (heigth0 / Mathf.Sin(this.angle)),
           0.5f * (heigth0 / Mathf.Sin(this.angle)),
           0.5f * this.width,
-          0.5f * this.heigth,
+//          0.5f * this.heigth,
           //左边的各个竖立边的长度
 					0.5f * (this.heigth - this.heigth0),		                                        //4
 					// 0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*1),    //5
@@ -684,22 +719,31 @@ public class PillarData {
 	public float[] heighsByNum(int num){
 		switch(num)
 		{
+			case 1:
+				return this.heighsByNum1;
+				break;
 			case 3:
 				return this.heighsByNum3;
 				break;
 			case 5:
+				return this.heighsByNum5;
 				break;
 			case 7:
+				return this.heighsByNum7;
 				break;
 			case 9:
+				return this.heighsByNum9;
 				break;
+
 			default:
-				Debug.log("==arg invalid======")
+				return this.heighsByNum9;
+				Debug.Log ("==arg invalid======");
 				break;
 		}
+	
   }
 
-  //左边1个角角度（不算两侧的一个柱子）
+  //左边斜边1个角角度（不算两侧的一个柱子）
 	public float[] anglesInner1{
 		get{ 
 			return new float[] {
@@ -756,18 +800,18 @@ public class PillarData {
 			};
 		}
 	}
+		
 
-
-  public float[] heighsByNum3{
+  public float[] heighsByNum1{
     get{
       return new float[] {
         0.5f * this.width / Mathf.Cos(this.anglesInner3[0]),
         0.5f * this.width / Mathf.Cos(this.anglesInner3[0])
-			};
+	  };
     }
   }
 
-  public float[] heighsByNum5{
+  public float[] heighsByNum3{
     get{
       return new float[] {
         0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner5[0]),
@@ -782,7 +826,7 @@ public class PillarData {
     }
   }
 
-  public float[] heighsByNum7{
+  public float[] heighsByNum5{
     get{
       return new float[] {
         0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
@@ -802,5 +846,26 @@ public class PillarData {
 			};
     }
   }
+
+	public float[] heighsByNum7{
+		get{
+			return new float[] {
+				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
+				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
+
+				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
+				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
+
+				0.5f * this.width / 2f / Mathf.Cos(this.anglesInner7[2]),
+				0.5f * this.width / 2f / Mathf.Cos(this.anglesInner7[2]),
+
+				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
+				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
+
+				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
+				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[0])
+			};
+		}
+	}
 
 }
