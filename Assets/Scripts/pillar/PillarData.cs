@@ -287,6 +287,7 @@ public class PillarData {
 			return new float[] {
 				this.heigth - this.heigth0  + 0.5f * 0.5f * this.width / 3f * Mathf.Tan(this.angle),	
 				this.heigth - this.heigth0  + 3 * (0.5f * 0.5f * this.width / 3f)  * Mathf.Tan(this.angle),	
+				this.heigth
 			};
 	  }
 	}
@@ -298,6 +299,7 @@ public class PillarData {
 				this.heigth - this.heigth0  + 0.5f * 0.5f * this.width / 4f * Mathf.Tan(this.angle),	
 				this.heigth - this.heigth0  + 3 * (0.5f * 0.5f * this.width / 4f)  * Mathf.Tan(this.angle),	
 				this.heigth - this.heigth0  + 5 * (0.5f * 0.5f * this.width / 4f)  * Mathf.Tan(this.angle),	
+				this.heigth
 			};
 	  }
 	}
@@ -309,6 +311,7 @@ public class PillarData {
 				this.heigth - this.heigth0  + 3 * (0.5f * 0.5f * this.width / 5f) * Mathf.Tan(this.angle),	
 				this.heigth - this.heigth0  + 5 * (0.5f * 0.5f * this.width / 5f) * Mathf.Tan(this.angle),
 				this.heigth - this.heigth0  + 7 * (0.5f * 0.5f * this.width / 5f) * Mathf.Tan(this.angle),	
+				this.heigth
 			};
 	  }
 	}
@@ -374,8 +377,7 @@ public class PillarData {
 				new Vector3 (0.3f* this.width - CubeMeshData.yThickness,  this.sideLens[11], 0f),
 				new Vector3 (0.4f* this.width - CubeMeshData.yThickness,  this.sideLens[12], 0f),
 				new Vector3 (0.5f* this.width - CubeMeshData.yThickness,  this.sideLens[13], 0f),
-
-            };
+				};
 		}
 	}
 
@@ -661,21 +663,33 @@ public class PillarData {
 
 			go.transform.parent = RLKUtility.Room_pillar.transform;
 		}
+			
+//		for (int i = 0; i < this.sideInnerLens.Length; i++)
+//		{
+//			float len = (float)this.sideInnerLens[i];
+//			//			Debug.Log ("len " + len + " i=  " + i);
+//			GameObject go =MakeCube(0.5f*len, Vector3.zero);
+//			go.name = go.name + i + "...";
+//			go.transform.position = go.transform.position + this.sideInnerCenters[i];
+//			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localInnerRotations[i]);
+//
+//			go.transform.parent = RLKUtility.Room_pillar.transform;
+//		}
 
 		//构造内部斜边
 
-		float[] lens = this.heighsByNum (num);
-		Vector3[] center = this.centerHsByNum (num);
-		vector3[] rotations = this.localRotationsByNum (num);
+		float[] lens = this.heighsByNum(num);
+		Vector3[] centers = this.centerHsByNum(num);
+		float[] rotations = this.localRotationsByNum(num);
 
-		for (int i = 0; i < this.sideInnerLens.Length; i++)
+		for (int i = 0; i < lens.Length; i++)
 		{
-			float len = (float)this.sideInnerLens[i];
+			float len = (float)lens[i];
 			//			Debug.Log ("len " + len + " i=  " + i);
 			GameObject go =MakeCube(0.5f*len, Vector3.zero);
-			go.name = go.name + i + "...";
-			go.transform.position = go.transform.position + this.sideInnerCenters[i];
-			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localInnerRotations[i]);
+			go.name = go.name + "." +i ;
+			go.transform.position = go.transform.position + centers[i];
+			go.transform.rotation = Quaternion.Euler(0f, 0f, rotations[i]);
 
 			go.transform.parent = RLKUtility.Room_pillar.transform;
 		}
@@ -685,7 +699,7 @@ public class PillarData {
 
 
 	//共用的边长 + 中间 高  + 最外侧的两个竖边
-	public float[] sideLensByNum{
+public float[] sideLensByNum{
     get
     {
 //			Debug.Log ("len=-=============");
@@ -731,17 +745,58 @@ public class PillarData {
 			case 7:
 				return this.heighsByNum7;
 				break;
-			case 9:
-				return this.heighsByNum9;
-				break;
-
 			default:
-				return this.heighsByNum9;
+				return this.heighsByNum7;
 				Debug.Log ("==arg invalid======");
 				break;
 		}
-	
-  }
+  	}
+
+	//各个斜边
+	public float[] localRotationsByNum(int num){
+		switch(num)
+		{
+		case 1:
+			return this.localRotationsByNum1;
+			break;
+		case 3:
+			return this.localRotationsByNum3;
+			break;
+		case 5:
+			return this.localRotationsByNum5;
+			break;
+		case 7:
+			return this.localRotationsByNum7;
+			break;
+		default:
+			return this.localRotationsByNum1;
+			Debug.Log ("==arg invalid======");
+			break;
+		}
+	}
+
+	//各个斜边位置
+	public Vector3[] centerHsByNum(int num){
+		switch(num)
+		{
+		case 1:
+			return this.centerHsByNum1;
+			break;
+		case 3:
+			return this.centerHsByNum3;
+			break;
+		case 5:
+			return this.centerHsByNum5;
+			break;
+		case 7:
+			return this.centerHsByNum7;
+			break;
+		default:
+			return this.centerHsByNum1;
+			Debug.Log ("==arg invalid======");
+			break;
+		}
+	}
 
   //左边斜边1个角角度（不算两侧的一个柱子）
 	public float[] anglesInner1{
@@ -805,8 +860,8 @@ public class PillarData {
   public float[] heighsByNum1{
     get{
       return new float[] {
-        0.5f * this.width / Mathf.Cos(this.anglesInner3[0]),
-        0.5f * this.width / Mathf.Cos(this.anglesInner3[0])
+        0.5f * this.width / Mathf.Cos(this.anglesInner1[0]),
+        0.5f * this.width / Mathf.Cos(this.anglesInner1[0]),
 	  };
     }
   }
@@ -814,35 +869,35 @@ public class PillarData {
   public float[] heighsByNum3{
     get{
       return new float[] {
-        0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner5[0]),
-        0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner5[0]),
+	        0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner3[0]),
+	        0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner3[0]),
 
-        0.5f * this.width / 2f / Mathf.Cos(this.anglesInner5[1]),
-        0.5f * this.width / 2f / Mathf.Cos(this.anglesInner5[1]),
+	        0.5f * this.width / 2f / Mathf.Cos(this.anglesInner3[1]),
+	        0.5f * this.width / 2f / Mathf.Cos(this.anglesInner3[1]),
 
-        0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner5[0]),
-        0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner5[0])
-			};
+	        0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner3[0]),
+	        0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner3[0])
+		};
     }
   }
 
   public float[] heighsByNum5{
     get{
       return new float[] {
-        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
-        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
+        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner5[0]),
+        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner5[0]),
 
-        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
-        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
+        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner5[1]),
+        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner5[1]),
 
-        0.5f * this.width / 2f / Mathf.Cos(this.anglesInner7[2]),
-        0.5f * this.width / 2f / Mathf.Cos(this.anglesInner7[2]),
+        0.5f * this.width / 3f / Mathf.Cos(this.anglesInner5[2]),
+        0.5f * this.width / 3f / Mathf.Cos(this.anglesInner5[2]),
 
-        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
-        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
+        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner5[1]),
+        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner5[1]),
 
-        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
-        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[0])
+        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner5[0]),
+        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner5[0])
 			};
     }
   }
@@ -850,22 +905,161 @@ public class PillarData {
 	public float[] heighsByNum7{
 		get{
 			return new float[] {
-				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
-				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
+				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
+				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
 
-				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
-				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
+				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
+				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
 
-				0.5f * this.width / 2f / Mathf.Cos(this.anglesInner7[2]),
-				0.5f * this.width / 2f / Mathf.Cos(this.anglesInner7[2]),
+				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[2]),
+				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[2]),
 
-				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
-				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
+				0.5f * this.width / 4f / Mathf.Cos(this.anglesInner7[3]),
+				0.5f * this.width / 4f / Mathf.Cos(this.anglesInner7[3]),
 
-				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
-				0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner7[0])
+				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[2]),
+				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[2]),
+
+				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
+				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
+
+				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
+				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[0])
 			};
 		}
 	}
 
+
+	public Vector3[] centerHsByNum1{
+		get{ 
+			return new Vector3[]{
+				new Vector3(-( 0.5f * this.width) * 0.5f,  0.5f * this.centerHs1[0], 0f),
+				new Vector3( ( 0.5f * this.width) * 0.5f,  0.5f * this.centerHs1[0], 0f)
+			};
+		}
+	}
+
+	public Vector3[] centerHsByNum3{
+		get{ 
+			return new Vector3[]{
+				new Vector3(-(0.5f * this.width)/2f /4f *(4f+3f), 0.5f * this.centerHs3[0], 0f),
+				new Vector3(-(0.5f * this.width)/2f /4f *(4f+1f), 0.5f * this.centerHs3[0], 0f),
+
+				new Vector3(-(0.5f * this.width)/2f /4f *2f, 0.5f * this.centerHs3[1], 0f),
+				new Vector3( (0.5f * this.width)/2f /4f *2f, 0.5f * this.centerHs3[1], 0f),
+
+				new Vector3( (0.5f * this.width)/2f /4f *(4f+1f), 0.5f * this.centerHs3[0], 0f),
+				new Vector3( (0.5f * this.width)/2f /4f *(4f+3f), 0.5f * this.centerHs3[0], 0f),
+			};
+		}
+	}
+
+	public Vector3[] centerHsByNum5{
+		get{ 
+			return new Vector3[]{
+				new Vector3(-(0.5f * this.width)/3f /4f *(4f+4f + 3f), 0.5f * this.centerHs5[0], 0f),
+				new Vector3(-(0.5f * this.width)/3f /4f *(4f+4f + 1f), 0.5f * this.centerHs5[0], 0f),
+				new Vector3(-(0.5f * this.width)/3f /4f *(4f+3f), 0.5f * this.centerHs5[1], 0f),
+				new Vector3(-(0.5f * this.width)/3f /4f *(4f+1f), 0.5f * this.centerHs5[1], 0f),
+
+				new Vector3(-(0.5f * this.width)/3f /4f * 2f, 0.5f * this.centerHs5[2], 0f),
+				new Vector3( (0.5f * this.width)/3f /4f * 2f, 0.5f * this.centerHs5[2], 0f),
+
+				new Vector3( (0.5f * this.width)/3f /4f *(4f+1f), 0.5f * this.centerHs5[1], 0f),
+				new Vector3( (0.5f * this.width)/3f /4f *(4f+3f), 0.5f * this.centerHs5[1], 0f),
+				new Vector3( (0.5f * this.width)/3f /4f *(4f+4f+1f), 0.5f * this.centerHs5[0], 0f),
+				new Vector3( (0.5f * this.width)/3f /4f *(4f+4f+3f), 0.5f * this.centerHs5[0], 0f),
+			};
+		}
+	}
+
+
+	public Vector3[] centerHsByNum7{
+		get{ 
+			return new Vector3[]{
+				new Vector3(-(0.5f * this.width)/4f /4f *(4f + 4f+ 4f + 3f), 0.5f * this.centerHs7[0], 0f),
+				new Vector3(-(0.5f * this.width)/4f /4f *(4f + 4f+ 4f + 1f), 0.5f * this.centerHs7[0], 0f),
+
+				new Vector3(-(0.5f * this.width)/4f /4f *(4f+ 4f + 3f), 0.5f * this.centerHs7[1], 0f),
+				new Vector3(-(0.5f * this.width)/4f /4f *(4f+ 4f + 1f), 0.5f * this.centerHs7[1], 0f),
+
+				new Vector3(-(0.5f * this.width)/4f /4f *(4f+3f), 0.5f * this.centerHs7[2], 0f),
+				new Vector3(-(0.5f * this.width)/4f /4f *(4f+1f), 0.5f * this.centerHs7[2], 0f),
+
+				new Vector3(-(0.5f * this.width)/4f /4f * 2f, 0.5f * this.centerHs7[3], 0f),
+				new Vector3( (0.5f * this.width)/4f /4f * 2f, 0.5f * this.centerHs7[3], 0f),
+
+				new Vector3( (0.5f * this.width)/4f /4f *(4f+1f), 0.5f * this.centerHs7[2], 0f),
+				new Vector3( (0.5f * this.width)/4f /4f *(4f+3f), 0.5f * this.centerHs7[2], 0f),
+				
+				new Vector3( (0.5f * this.width)/4f /4f *(4f+ 4f + 1f), 0.5f * this.centerHs7[1], 0f),
+				new Vector3( (0.5f * this.width)/4f /4f *(4f+ 4f + 3f), 0.5f * this.centerHs7[1], 0f),
+				
+				new Vector3( (0.5f * this.width)/4f /4f *(4f + 4f+ 4f + 1f), 0.5f * this.centerHs7[0], 0f),
+				new Vector3( (0.5f * this.width)/4f /4f *(4f + 4f+ 4f + 3f), 0.5f * this.centerHs7[0], 0f),
+			};
+		}
+	}
+
+	public float[] localRotationsByNum1{
+		get { 
+			return new float[]{
+				this.anglesInner1[0] * Mathf.Rad2Deg,                 //1
+				360f - this.anglesInner1[0] * Mathf.Rad2Deg ,         //2
+			};
+		}
+	}
+
+		public float[] localRotationsByNum3{
+		get { 
+			return new float[]{
+				this.anglesInner3[0] * Mathf.Rad2Deg,                 //1
+				360f - this.anglesInner3[0] * Mathf.Rad2Deg ,         //2
+				this.anglesInner3[1] * Mathf.Rad2Deg,                 //3
+				360f - this.anglesInner3[1] * Mathf.Rad2Deg,          //4
+				this.anglesInner3[0] * Mathf.Rad2Deg,                 //5
+				360f - this.anglesInner3[0] * Mathf.Rad2Deg,           //6
+			};
+		}
+	}
+
+		public float[] localRotationsByNum5{
+		get { 
+			return new float[]{
+				this.anglesInner5[0] * Mathf.Rad2Deg,      
+				360f - this.anglesInner5[0] * Mathf.Rad2Deg, 
+				this.anglesInner5[1] * Mathf.Rad2Deg,
+				360f - this.anglesInner5[1] * Mathf.Rad2Deg,          
+				this.anglesInner5[2] * Mathf.Rad2Deg,
+				360f - this.anglesInner5[2] * Mathf.Rad2Deg,
+				this.anglesInner5[1] * Mathf.Rad2Deg,
+				360f - this.anglesInner5[1] * Mathf.Rad2Deg,
+				this.anglesInner5[0] * Mathf.Rad2Deg,
+				360f - this.anglesInner5[0] * Mathf.Rad2Deg,
+			};
+		}
+	}
+
+		public float[] localRotationsByNum7{
+		get { 
+			return new float[]{
+				this.anglesInner7[0] * Mathf.Rad2Deg,
+				360f - this.anglesInner7[0] * Mathf.Rad2Deg,
+				this.anglesInner7[1] * Mathf.Rad2Deg,
+				360f - this.anglesInner7[1] * Mathf.Rad2Deg,
+				this.anglesInner7[2] * Mathf.Rad2Deg,
+				360f - this.anglesInner7[2] * Mathf.Rad2Deg,
+
+				this.anglesInner7[3] * Mathf.Rad2Deg,
+				360f - this.anglesInner7[3] * Mathf.Rad2Deg,
+
+				this.anglesInner7[2] * Mathf.Rad2Deg,
+				360f - this.anglesInner7[2] * Mathf.Rad2Deg,
+				this.anglesInner7[1] * Mathf.Rad2Deg,
+				360f - this.anglesInner7[1] * Mathf.Rad2Deg,
+				this.anglesInner7[0] * Mathf.Rad2Deg,
+				360f - this.anglesInner7[0] * Mathf.Rad2Deg 
+			};
+		}
+	}
 }
