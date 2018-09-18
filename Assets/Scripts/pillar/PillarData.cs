@@ -502,6 +502,25 @@ public class PillarData {
 		}
 	}
 
+
+	public int[] verticalOffsetVertices{
+		get{
+			return new int[] {
+				3,
+				6
+			};
+		}
+	}
+
+	public float[] verticalOffsets{
+		get{
+			return new float[] {
+				2f * CubeMeshData.yThickness * Mathf.Tan(this.angle) + 0.001f,
+				2f * CubeMeshData.yThickness * Mathf.Tan(this.angle) + 0.001f
+			};
+		}
+	}
+
 	public void  draw()
 	{
 		for (int i = 0; i < 1; i++)
@@ -686,11 +705,15 @@ public class PillarData {
 		{
 			float len = (float)lens[i];
 			//			Debug.Log ("len " + len + " i=  " + i);
-			GameObject go =MakeCube(0.5f*len, Vector3.zero);
+			GameObject go;
+			if(i < (num * 2 + 1)){
+				go = MakeCube(0.5f*len, Vector3.zero);
+			}else{
+				go = MakeCubeWithSideOffset(0.5f * len, Vector3.zero, this.verticalOffsetVertices, this.verticalOffsets);
+			}
 			go.name = go.name + "." +i ;
 			go.transform.position = go.transform.position + centers[i];
 			go.transform.rotation = Quaternion.Euler(0f, 0f, rotations[i]);
-
 			go.transform.parent = RLKUtility.Room_pillar.transform;
 		}
 	}
@@ -729,26 +752,20 @@ public float[] sideLensByNum{
     }
   }
 
-  //除了共用的竖边
+  //除了共用的竖边 包括竖的跟斜着的
 	public float[] heighsByNum(int num){
 		switch(num)
 		{
 			case 1:
 				return this.heighsByNum1;
-				break;
 			case 3:
 				return this.heighsByNum3;
-				break;
 			case 5:
 				return this.heighsByNum5;
-				break;
 			case 7:
 				return this.heighsByNum7;
-				break;
 			default:
-				return this.heighsByNum7;
-				Debug.Log ("==arg invalid======");
-				break;
+				return this.heighsByNum1;
 		}
   	}
 
@@ -758,20 +775,14 @@ public float[] sideLensByNum{
 		{
 		case 1:
 			return this.localRotationsByNum1;
-			break;
 		case 3:
 			return this.localRotationsByNum3;
-			break;
 		case 5:
 			return this.localRotationsByNum5;
-			break;
 		case 7:
 			return this.localRotationsByNum7;
-			break;
 		default:
 			return this.localRotationsByNum1;
-			Debug.Log ("==arg invalid======");
-			break;
 		}
 	}
 
@@ -781,20 +792,14 @@ public float[] sideLensByNum{
 		{
 		case 1:
 			return this.centerHsByNum1;
-			break;
 		case 3:
 			return this.centerHsByNum3;
-			break;
 		case 5:
 			return this.centerHsByNum5;
-			break;
 		case 7:
 			return this.centerHsByNum7;
-			break;
 		default:
 			return this.centerHsByNum1;
-			Debug.Log ("==arg invalid======");
-			break;
 		}
 	}
 
@@ -843,7 +848,7 @@ public float[] sideLensByNum{
 	}
 
 
-		//左边5个角角度（不算两侧的9个柱子）
+	//左边5个角角度（不算两侧的9个柱子）
 	public float[] anglesInner9{
 		get{ 
 			return new float[] {
@@ -862,22 +867,30 @@ public float[] sideLensByNum{
       return new float[] {
         0.5f * this.width / Mathf.Cos(this.anglesInner1[0]),
         0.5f * this.width / Mathf.Cos(this.anglesInner1[0]),
-	  };
+        //竖着的中间那个
+        this.heigth
+	  	};
     }
   }
 
   public float[] heighsByNum3{
     get{
       return new float[] {
-	        0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner3[0]),
-	        0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner3[0]),
+	      0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner3[0]),
+	      0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner3[0]),
 
-	        0.5f * this.width / 2f / Mathf.Cos(this.anglesInner3[1]),
-	        0.5f * this.width / 2f / Mathf.Cos(this.anglesInner3[1]),
+	      0.5f * this.width / 2f / Mathf.Cos(this.anglesInner3[1]),
+	      0.5f * this.width / 2f / Mathf.Cos(this.anglesInner3[1]),
 
-	        0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner3[0]),
-	        0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner3[0])
-		};
+	      0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner3[0]),
+	      0.5f * this.width / 2f * 0.5f / Mathf.Cos(this.anglesInner3[0]),
+
+	      //三个竖着的柱子
+	      this.heigth,
+	      this.heigth - this.heigth0 + 0.5f*this.width / 2f * Mathf.Tan(this.angle),
+	      this.heigth - this.heigth0 + 0.5f*this.width / 2f * Mathf.Tan(this.angle),
+
+			};
     }
   }
 
@@ -897,7 +910,14 @@ public float[] sideLensByNum{
         0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner5[1]),
 
         0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner5[0]),
-        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner5[0])
+        0.5f * this.width / 3f * 0.5f / Mathf.Cos(this.anglesInner5[0]),
+
+        //五个竖着的柱子
+	      this.heigth,
+	      this.heigth - this.heigth0 + 0.5f*this.width / 3f * 1f * Mathf.Tan(this.angle),
+	      this.heigth - this.heigth0 + 0.5f*this.width / 3f * 2f * Mathf.Tan(this.angle),
+	      this.heigth - this.heigth0 + 0.5f*this.width / 3f * 2f * Mathf.Tan(this.angle),
+	      this.heigth - this.heigth0 + 0.5f*this.width / 3f * 1f * Mathf.Tan(this.angle),
 			};
     }
   }
@@ -924,7 +944,16 @@ public float[] sideLensByNum{
 				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[1]),
 
 				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
-				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[0])
+				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
+
+				//七个竖着的柱子
+	      this.heigth,
+	      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 1f * Mathf.Tan(this.angle),
+	      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 2f * Mathf.Tan(this.angle),
+	      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 3f * Mathf.Tan(this.angle),
+	      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 3f * Mathf.Tan(this.angle),
+	      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 2f * Mathf.Tan(this.angle),
+	      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 1f * Mathf.Tan(this.angle),
 			};
 		}
 	}
@@ -934,7 +963,9 @@ public float[] sideLensByNum{
 		get{ 
 			return new Vector3[]{
 				new Vector3(-( 0.5f * this.width) * 0.5f,  0.5f * this.centerHs1[0], 0f),
-				new Vector3( ( 0.5f * this.width) * 0.5f,  0.5f * this.centerHs1[0], 0f)
+				new Vector3( ( 0.5f * this.width) * 0.5f,  0.5f * this.centerHs1[0], 0f),
+				
+				new Vector3( 0f, 0.5f * this.heighsByNum1[2], 0f)
 			};
 		}
 	}
@@ -950,6 +981,11 @@ public float[] sideLensByNum{
 
 				new Vector3( (0.5f * this.width)/2f /4f *(4f+1f), 0.5f * this.centerHs3[0], 0f),
 				new Vector3( (0.5f * this.width)/2f /4f *(4f+3f), 0.5f * this.centerHs3[0], 0f),
+
+				//三个竖边的中心点
+				new Vector3( 0f, 0.5f * this.heighsByNum3[6], 0f),
+				new Vector3(-(0.5f * this.width / 2f), 0.5f * this.heighsByNum3[7], 0f),
+				new Vector3( (0.5f * this.width / 2f), 0.5f * this.heighsByNum3[8], 0f),
 			};
 		}
 	}
@@ -969,6 +1005,14 @@ public float[] sideLensByNum{
 				new Vector3( (0.5f * this.width)/3f /4f *(4f+3f), 0.5f * this.centerHs5[1], 0f),
 				new Vector3( (0.5f * this.width)/3f /4f *(4f+4f+1f), 0.5f * this.centerHs5[0], 0f),
 				new Vector3( (0.5f * this.width)/3f /4f *(4f+4f+3f), 0.5f * this.centerHs5[0], 0f),
+
+				//五个竖边的中心点
+				new Vector3( 0f, 0.5f * this.heighsByNum5[10], 0f),
+				new Vector3(-(0.5f * this.width/3f) * 2f, 0.5f * this.heighsByNum5[11], 0f),
+				new Vector3(-(0.5f * this.width/3f) * 1f, 0.5f * this.heighsByNum5[12], 0f),
+				new Vector3( (0.5f * this.width/3f) * 1f, 0.5f * this.heighsByNum5[13], 0f),
+				new Vector3( (0.5f * this.width/3f) * 2f, 0.5f * this.heighsByNum5[14], 0f),
+				
 			};
 		}
 	}
@@ -997,6 +1041,15 @@ public float[] sideLensByNum{
 				
 				new Vector3( (0.5f * this.width)/4f /4f *(4f + 4f+ 4f + 1f), 0.5f * this.centerHs7[0], 0f),
 				new Vector3( (0.5f * this.width)/4f /4f *(4f + 4f+ 4f + 3f), 0.5f * this.centerHs7[0], 0f),
+
+				//七个个竖边的中心点
+				new Vector3( 0f, 0.5f * this.heighsByNum7[14], 0f),
+				new Vector3(-(0.5f * this.width/4f) * 3f, 0.5f * this.heighsByNum7[15], 0f),
+				new Vector3(-(0.5f * this.width/4f) * 2f, 0.5f * this.heighsByNum7[16], 0f),
+				new Vector3(-(0.5f * this.width/4f) * 1f, 0.5f * this.heighsByNum7[17], 0f),
+				new Vector3( (0.5f * this.width/4f) * 1f, 0.5f * this.heighsByNum7[18], 0f),
+				new Vector3( (0.5f * this.width/4f) * 2f, 0.5f * this.heighsByNum7[19], 0f),
+				new Vector3( (0.5f * this.width/4f) * 3f, 0.5f * this.heighsByNum7[20], 0f),
 			};
 		}
 	}
@@ -1006,6 +1059,8 @@ public float[] sideLensByNum{
 			return new float[]{
 				this.anglesInner1[0] * Mathf.Rad2Deg,                 //1
 				360f - this.anglesInner1[0] * Mathf.Rad2Deg ,         //2
+				//竖着的角度
+				90f
 			};
 		}
 	}
@@ -1018,7 +1073,11 @@ public float[] sideLensByNum{
 				this.anglesInner3[1] * Mathf.Rad2Deg,                 //3
 				360f - this.anglesInner3[1] * Mathf.Rad2Deg,          //4
 				this.anglesInner3[0] * Mathf.Rad2Deg,                 //5
-				360f - this.anglesInner3[0] * Mathf.Rad2Deg,           //6
+				360f - this.anglesInner3[0] * Mathf.Rad2Deg,          //6
+				//竖着的角度
+				90f,
+				90f,
+				90f
 			};
 		}
 	}
@@ -1036,6 +1095,13 @@ public float[] sideLensByNum{
 				360f - this.anglesInner5[1] * Mathf.Rad2Deg,
 				this.anglesInner5[0] * Mathf.Rad2Deg,
 				360f - this.anglesInner5[0] * Mathf.Rad2Deg,
+
+				//五个竖着的角度
+				90f,
+				90f,
+				90f,
+				90f,
+				90f
 			};
 		}
 	}
@@ -1058,7 +1124,16 @@ public float[] sideLensByNum{
 				this.anglesInner7[1] * Mathf.Rad2Deg,
 				360f - this.anglesInner7[1] * Mathf.Rad2Deg,
 				this.anglesInner7[0] * Mathf.Rad2Deg,
-				360f - this.anglesInner7[0] * Mathf.Rad2Deg 
+				360f - this.anglesInner7[0] * Mathf.Rad2Deg,
+
+				//七个竖着的角度
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f
 			};
 		}
 	}
