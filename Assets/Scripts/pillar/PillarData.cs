@@ -487,8 +487,10 @@ public class PillarData {
 	public float[] leftOffsets{
 		get{
 			return new float[] {
-				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f,
-				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f
+//				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f,
+//				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f
+				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad),
+				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad)
 			};
 		}
 	}
@@ -496,8 +498,10 @@ public class PillarData {
 	public float[] rightOffsets{
 		get{
 			return new float[] {
-				-(2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f),
-				-(2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f)
+//				-(2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f),
+//				-(2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f)
+				(2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad)),
+				(2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad))
 			};
 		}
 	}
@@ -523,6 +527,7 @@ public class PillarData {
 
 	public void  draw()
 	{
+		//左斜边
 		for (int i = 0; i < 1; i++)
 		{
 			float len = (float)this.sideLens[i];
@@ -535,7 +540,7 @@ public class PillarData {
 			go.transform.parent = RLKUtility.Room_pillar.transform;
 		}
 
-
+		//右斜边
 		for (int i = 1; i < 2; i++)
 		{
 			float len = (float)this.sideLens[i];
@@ -547,12 +552,41 @@ public class PillarData {
 
 			go.transform.parent = RLKUtility.Room_pillar.transform;
 		}
-
-		for (int i = 2; i < this.sideLens.Length; i++)
+		//底边
+		for (int i = 2; i < 3; i++)
 		{
 			float len = (float)this.sideLens[i];
 			//			Debug.Log ("len " + len + " i=  " + i);
 			GameObject go =MakeCube(len, Vector3.zero);
+			go.name = go.name + i + "..";
+			go.transform.position = go.transform.position + this.centerSidePositions[i];
+			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
+
+			go.transform.parent = RLKUtility.Room_pillar.transform;
+		}
+
+		//最左竖边
+		for (int i = 3; i < 4; i++)
+		{
+			float len = (float)this.sideLens[i];
+			//			Debug.Log ("len " + len + " i=  " + i);
+//			GameObject go =MakeCube(len, Vector3.zero);
+			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.leftOffsetVertices, this.leftOffsets);
+			go.name = go.name + i + "..";
+			go.transform.position = go.transform.position + this.centerSidePositions[i];
+			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
+
+			go.transform.parent = RLKUtility.Room_pillar.transform;
+		}
+
+
+		//最右竖边
+		for (int i = 4; i < this.sideLens.Length; i++)
+		{
+			float len = (float)this.sideLens[i];
+			//			Debug.Log ("len " + len + " i=  " + i);
+			//			GameObject go =MakeCube(len, Vector3.zero);
+			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.rightOffsetVertices, this.rightOffsets);
 			go.name = go.name + i + "..";
 			go.transform.position = go.transform.position + this.centerSidePositions[i];
 			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
@@ -646,6 +680,7 @@ public class PillarData {
 	public void  drawByNum( int num)
 	{
 		Debug.Log ("=====drawByNum=====" + num);
+		//绘制左边
 		for (int i = 0; i < 1; i++)
 		{
 			float len = (float)this.sideLensByNum[i];
@@ -658,7 +693,7 @@ public class PillarData {
 			go.transform.parent = RLKUtility.Room_pillar.transform;
 		}
 
-
+		//绘制右边
 		for (int i = 1; i < 2; i++)
 		{
 			float len = (float)this.sideLensByNum[i];
@@ -670,8 +705,8 @@ public class PillarData {
 
 			go.transform.parent = RLKUtility.Room_pillar.transform;
 		}
-
-		for (int i = 2; i < this.sideLensByNum.Length; i++)
+		//绘制底边
+		for (int i = 2; i < 3; i++)
 		{
 			float len = (float)this.sideLensByNum[i];
 			//			Debug.Log ("len " + len + " i=  " + i);
@@ -682,6 +717,34 @@ public class PillarData {
 
 			go.transform.parent = RLKUtility.Room_pillar.transform;
 		}
+
+		//绘制左第一竖边
+		for (int i = 3; i < 4; i++)
+		{
+			float len = (float)this.sideLensByNum[i];
+			//			Debug.Log ("len " + len + " i=  " + i);
+			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.leftOffsetVertices, this.leftOffsets);
+			go.name = go.name + i + "..";
+			go.transform.position = go.transform.position + this.centerSidePositionsByNum[i];
+			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
+
+			go.transform.parent = RLKUtility.Room_pillar.transform;
+		}
+
+
+		//绘制右第一竖边
+		for (int i = 4; i < this.sideLensByNum.Length; i++)
+		{
+			float len = (float)this.sideLensByNum[i];
+			//			Debug.Log ("len " + len + " i=  " + i);
+			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.rightOffsetVertices, this.rightOffsets);
+			go.name = go.name + i + "..";
+			go.transform.position = go.transform.position + this.centerSidePositionsByNum[i];
+			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
+
+			go.transform.parent = RLKUtility.Room_pillar.transform;
+		}
+
 			
 //		for (int i = 0; i < this.sideInnerLens.Length; i++)
 //		{

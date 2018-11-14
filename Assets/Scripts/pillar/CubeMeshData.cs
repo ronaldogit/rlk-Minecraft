@@ -96,12 +96,23 @@ public static class CubeMeshData {
 			fv[i].x = (CubeMeshData.vertices()[faceTriangles[dir][i]].x * lenScale) + pos.x;
 			fv[i].y = (CubeMeshData.vertices()[faceTriangles[dir][i]].y * 1f) + pos.y;
 			fv[i].z = (CubeMeshData.vertices()[faceTriangles[dir][i]].z * 1f) + pos.z;
-		}
-		if (offsets != null && offsets.Length > 0) {
-			for (int i = 0; i < offsets.Length; i++) {
-				fv [i].x += offsets[i]; 
+
+			if (offsets != null && offsets.Length > 0) {
+				for (int j = 0; j < offsets.Length; j++) {
+					//				fv [i].x += offsets[i]; 
+					if(faceTriangles[dir][i] == offsetIndex[j]){
+						Debug.Log( offsetIndex[j]);
+						fv [i].x += offsets [j];
+					}
+				}
 			}
+
 		}
+//		if (offsets != null && offsets.Length > 0) {
+//			for (int i = 0; i < offsets.Length; i++) {
+////				fv [i].x += offsets[i]; 
+//			}
+//		}
         return fv;
     }
 
