@@ -829,7 +829,8 @@ public float[] sideLensByNum{
         return new float[] {
           0.5f * (heigth0 / Mathf.Sin(this.angle)),
           0.5f * (heigth0 / Mathf.Sin(this.angle)),
-          0.5f * this.width,
+          // 0.5f * (this.width + CubeMeshData.yThickness),
+          0.5f * (this.width),
 //          0.5f * this.heigth,
           //左边的各个竖立边的长度
 					0.5f * (this.heigth - this.heigth0),		                                        //4
@@ -859,6 +860,8 @@ public float[] sideLensByNum{
 				return this.heighsByNum5;
 			case 7:
 				return this.heighsByNum7;
+			case 9:
+				return this.heighsByNum9;
 			default:
 				return this.heighsByNum1;
 		}
@@ -876,6 +879,8 @@ public float[] sideLensByNum{
 			return this.localRotationsByNum5;
 		case 7:
 			return this.localRotationsByNum7;
+		case 9:
+			return this.localRotationsByNum9;
 		default:
 			return this.localRotationsByNum1;
 		}
@@ -893,6 +898,8 @@ public float[] sideLensByNum{
 			return this.centerHsByNum5;
 		case 7:
 			return this.centerHsByNum7;
+		case 9:
+			return this.centerHsByNum9;
 		default:
 			return this.centerHsByNum1;
 		}
@@ -1042,16 +1049,63 @@ public float[] sideLensByNum{
 				0.5f * this.width / 4f * 0.5f / Mathf.Cos(this.anglesInner7[0]),
 
 				//七个竖着的柱子
-	      this.heigth,
-	      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 1f * Mathf.Tan(this.angle),
-	      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 2f * Mathf.Tan(this.angle),
-	      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 3f * Mathf.Tan(this.angle),
-	      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 3f * Mathf.Tan(this.angle),
-	      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 2f * Mathf.Tan(this.angle),
-	      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 1f * Mathf.Tan(this.angle),
+		      this.heigth,
+		      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 1f * Mathf.Tan(this.angle),
+		      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 2f * Mathf.Tan(this.angle),
+		      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 3f * Mathf.Tan(this.angle),
+		      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 3f * Mathf.Tan(this.angle),
+		      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 2f * Mathf.Tan(this.angle),
+		      this.heigth - this.heigth0 + 0.5f*this.width / 4f * 1f * Mathf.Tan(this.angle),
 			};
 		}
 	}
+
+
+	public float[] heighsByNum9{
+		get{
+			return new float[] {
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[0]),
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[0]),
+
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[1]),
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[1]),
+
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[2]),
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[2]),
+
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[3]),
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[3]),
+
+				0.5f * this.width / 5f / Mathf.Cos(this.anglesInner9[4]),
+				0.5f * this.width / 5f / Mathf.Cos(this.anglesInner9[4]),
+
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[3]),
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[3]),
+
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[2]),
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[2]),
+
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[1]),
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[1]),
+
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[0]),
+				0.5f * this.width / 5f * 0.5f / Mathf.Cos(this.anglesInner9[0]),
+
+				//九个竖着的柱子
+	            this.heigth,
+				this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*1,   //5
+				this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*2,    //6
+				this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*3,    //7
+				this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*4,    //8
+				//右边的各个竖立边长度
+				this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*4,    //9
+				this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*3,    //10
+				this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*2,    //11
+				this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*1,    //12 
+			};
+		}
+	}
+
 
 
 	public Vector3[] centerHsByNum1{
@@ -1149,6 +1203,51 @@ public float[] sideLensByNum{
 		}
 	}
 
+
+		public Vector3[] centerHsByNum9{
+		get{ 
+			return new Vector3[]{
+				new Vector3(-(0.5f * this.width)/5f/4f *(4f + 4f + 4f+ 4f + 3f), 0.5f * this.centerHs9[0], 0f),
+				new Vector3(-(0.5f * this.width)/5f/4f *(4f + 4f + 4f+ 4f + 1f), 0.5f * this.centerHs9[0], 0f),
+
+				new Vector3(-(0.5f * this.width)/5f/4f *(4f + 4f + 4f + 3f), 0.5f * this.centerHs9[1], 0f),
+				new Vector3(-(0.5f * this.width)/5f/4f *(4f + 4f + 4f + 1f), 0.5f * this.centerHs9[1], 0f),
+
+				new Vector3(-(0.5f * this.width)/5f/4f*(4f + 4f+3f), 0.5f * this.centerHs9[2], 0f),
+				new Vector3(-(0.5f * this.width)/5f/4f*(4f + 4f+1f), 0.5f * this.centerHs9[2], 0f),
+
+				new Vector3(-(0.5f * this.width)/5f/4f *(4f+3f), 0.5f * this.centerHs9[3], 0f),
+				new Vector3(-(0.5f * this.width)/5f/4f *(4f+1f), 0.5f * this.centerHs9[3], 0f),
+
+				new Vector3(-(0.5f * this.width)/5f/4f * 2f, 0.5f * this.centerHs9[4], 0f),
+				new Vector3( (0.5f * this.width)/5f/4f * 2f, 0.5f * this.centerHs9[4], 0f),
+
+				new Vector3( (0.5f * this.width)/5f/4f *(4f+1f), 0.5f * this.centerHs9[3], 0f),
+				new Vector3( (0.5f * this.width)/5f/4f *(4f+3f), 0.5f * this.centerHs9[3], 0f),
+				
+				new Vector3( (0.5f * this.width)/5f /4f *(4f+ 4f + 1f), 0.5f * this.centerHs9[2], 0f),
+				new Vector3( (0.5f * this.width)/5f /4f *(4f+ 4f + 3f), 0.5f * this.centerHs9[2], 0f),
+				
+				new Vector3( (0.5f * this.width)/5f /4f *(4f + 4f+ 4f + 1f), 0.5f * this.centerHs9[1], 0f),
+				new Vector3( (0.5f * this.width)/5f /4f *(4f + 4f+ 4f + 3f), 0.5f * this.centerHs9[1], 0f),
+
+				new Vector3( (0.5f * this.width)/5f /4f *(4f + 4f + 4f+ 4f + 1f), 0.5f * this.centerHs9[0], 0f),
+				new Vector3( (0.5f * this.width)/5f /4f *(4f + 4f + 4f+ 4f + 3f), 0.5f * this.centerHs9[0], 0f),
+
+				//七个个竖边的中心点
+				new Vector3( 0f, 0.5f * this.heighsByNum9[18], 0f),
+				new Vector3(-(0.5f * this.width/5f) * 4f, 0.5f * this.heighsByNum9[19], 0f),
+				new Vector3(-(0.5f * this.width/5f) * 3f, 0.5f * this.heighsByNum9[20], 0f),
+				new Vector3(-(0.5f * this.width/5f) * 2f, 0.5f * this.heighsByNum9[21], 0f),
+				new Vector3(-(0.5f * this.width/5f) * 1f, 0.5f * this.heighsByNum9[22], 0f),
+				new Vector3( (0.5f * this.width/5f) * 1f, 0.5f * this.heighsByNum9[23], 0f),
+				new Vector3( (0.5f * this.width/5f) * 2f, 0.5f * this.heighsByNum9[24], 0f),
+				new Vector3( (0.5f * this.width/5f) * 3f, 0.5f * this.heighsByNum9[25], 0f),
+				new Vector3( (0.5f * this.width/5f) * 4f, 0.5f * this.heighsByNum9[26], 0f)
+			};
+		}
+	}
+
 	public float[] localRotationsByNum1{
 		get { 
 			return new float[]{
@@ -1201,7 +1300,7 @@ public float[] sideLensByNum{
 		}
 	}
 
-		public float[] localRotationsByNum7{
+	public float[] localRotationsByNum7{
 		get { 
 			return new float[]{
 				this.anglesInner7[0] * Mathf.Rad2Deg,
@@ -1232,4 +1331,41 @@ public float[] sideLensByNum{
 			};
 		}
 	}
+
+	public float[] localRotationsByNum9{
+		get { 
+			return new float[]{
+				this.anglesInner9[0] * Mathf.Rad2Deg,
+				360f - this.anglesInner9[0] * Mathf.Rad2Deg,
+				this.anglesInner9[1] * Mathf.Rad2Deg,
+				360f - this.anglesInner9[1] * Mathf.Rad2Deg,
+				this.anglesInner9[2] * Mathf.Rad2Deg,
+				360f - this.anglesInner9[2] * Mathf.Rad2Deg,
+				this.anglesInner9[3] * Mathf.Rad2Deg,
+				360f - this.anglesInner9[3] * Mathf.Rad2Deg,
+				this.anglesInner9[4] * Mathf.Rad2Deg,
+				360f - this.anglesInner9[4] * Mathf.Rad2Deg,
+				this.anglesInner9[3] * Mathf.Rad2Deg,
+				360f - this.anglesInner9[3] * Mathf.Rad2Deg,
+				this.anglesInner9[2] * Mathf.Rad2Deg,
+				360f - this.anglesInner9[2] * Mathf.Rad2Deg,
+				this.anglesInner9[1] * Mathf.Rad2Deg,
+				360f - this.anglesInner9[1] * Mathf.Rad2Deg,
+				this.anglesInner9[0] * Mathf.Rad2Deg,
+				360f - this.anglesInner9[0] * Mathf.Rad2Deg,
+
+				//9个竖着的角度
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f,
+				90f
+			};
+		}
+	}
+
 }

@@ -111,7 +111,8 @@ public class ProcedualPillar : MonoBehaviour
 //		PillarData p = new PillarData (12f,1f,2f);
 		PillarData p = new PillarData (Pillar_w, Pillar_h1, Pillar_h2);
 		if (Pillar_slnum == 9) {
-			p.draw ();
+			// p.draw ();
+			p.drawByNum(Pillar_slnum);	
 		} else {
 			p.drawByNum(Pillar_slnum);	
 		}
