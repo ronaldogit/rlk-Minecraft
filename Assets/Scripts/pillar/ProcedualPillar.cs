@@ -113,7 +113,7 @@ public class ProcedualPillar : MonoBehaviour
 		if (Pillar_slnum == 9) {
 			p.draw ();
 		} else {
-			p.drawByNum( Pillar_slnum);	
+			p.drawByNum(Pillar_slnum);	
 		}
 			
 	}

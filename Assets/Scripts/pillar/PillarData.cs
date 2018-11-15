@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PillarData {
 	public Vector3 position;
-	public float width;
-	public float heigth;
-	public float topAngle;
+	public float width;  //宽度
+	public float heigth;  //高度
+	public float topAngle; //顶角
+	//左上底部斜角
 	public float angle {
 		// get { return Mathf.Atan2 (heigth, 0.5f * width) * Mathf.Rad2Deg; } 
 		get{
@@ -79,7 +80,7 @@ public class PillarData {
 //		this.topAngle = topAngle;
 //	}
 
-	//w:钢架宽； h1:钢架边高1； h2:钢架边高2
+	//w:钢架宽； h1:钢架边高1； h2:钢架边高2 h1下面 h2上面
 	public PillarData(float w, float h1, float h2){
 		this.width = w;
 		this.heigth = h1+h2;
@@ -90,9 +91,9 @@ public class PillarData {
 	//三个顶点坐标 左下 最上 右下
 	public Vector3[] vertices{
 		get { return new Vector3[] {
-				new Vector3(-0.5f*width,0f + leftH1 ,0f), //左下
+				new Vector3(-0.5f*width, 0f + leftH1, 0f), //左下
 				new Vector3(0, this.heigth, 0f), //顶上
-				new Vector3(0.5f*width,0f + leftH1, 0f)     //右下
+				new Vector3(0.5f*width, 0f + leftH1, 0f)     //右下
 			};
 		}
 	}
@@ -135,13 +136,12 @@ public class PillarData {
 				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*2),    //6
 				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*3),    //7
 				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*4),    //8
+				//右边的各个竖立边长度
 				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*4),    //9
 				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*3),    //10
 				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*2),    //11
 				0.5f * (this.heigth - this.heigth0 + 0.5f*this.width/5*Mathf.Tan(this.angle)*1),    //12
 				0.5f * (this.heigth - this.heigth0)                                             	//13
-                //右边的各个竖立边长度
-
             };
         }
     }
@@ -484,13 +484,44 @@ public class PillarData {
 		}
 	}
 
+
+	public int[] leftOffsetYVertices{
+		get{
+			return new int[] {
+				3,
+				6
+			};
+		}
+	}
+
+	public int[] rightOffsetYVertices{
+		get{
+			return new int[] {
+				0,
+				5
+			};
+		}
+	}
+
+
+	public float[] yOffsets{
+		get{
+			return new float[] {
+				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f,
+				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f
+				// 2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad),
+				// 2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad)
+			};
+		}
+	}
+
 	public float[] leftOffsets{
 		get{
 			return new float[] {
-//				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f,
-//				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f
-				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad),
-				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad)
+				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f,
+				2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f
+				// 2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad),
+				// 2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad)
 			};
 		}
 	}
@@ -498,10 +529,10 @@ public class PillarData {
 	public float[] rightOffsets{
 		get{
 			return new float[] {
-//				-(2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f),
-//				-(2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f)
-				(2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad)),
-				(2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad))
+				-(2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f),
+				-(2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad) + 0.001f)
+				// (2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad)),
+				// (2f * CubeMeshData.yThickness/Mathf.Tan(this.topAngle/2 * Mathf.Deg2Rad))
 			};
 		}
 	}
@@ -723,7 +754,7 @@ public class PillarData {
 		{
 			float len = (float)this.sideLensByNum[i];
 			//			Debug.Log ("len " + len + " i=  " + i);
-			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.leftOffsetVertices, this.leftOffsets);
+			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.leftOffsetYVertices, this.yOffsets);
 			go.name = go.name + i + "..";
 			go.transform.position = go.transform.position + this.centerSidePositionsByNum[i];
 			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
@@ -737,7 +768,8 @@ public class PillarData {
 		{
 			float len = (float)this.sideLensByNum[i];
 			//			Debug.Log ("len " + len + " i=  " + i);
-			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.rightOffsetVertices, this.rightOffsets);
+			// GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.rightOffsetVertices, this.rightOffsets);
+			GameObject go =MakeCubeWithSideOffset(len, Vector3.zero, this.rightOffsetYVertices, this.yOffsets);
 			go.name = go.name + i + "..";
 			go.transform.position = go.transform.position + this.centerSidePositionsByNum[i];
 			go.transform.rotation = Quaternion.Euler(0f, 0f, this.localRotations[i]);
