@@ -101,7 +101,7 @@ public static class CubeMeshData {
 				for (int j = 0; j < offsets.Length; j++) {
 					//				fv [i].x += offsets[i]; 
 					if(faceTriangles[dir][i] == offsetIndex[j]){
-						Debug.Log( offsetIndex[j]);
+//						Debug.Log( offsetIndex[j]);
 						fv [i].x += offsets [j];
 					}
 				}

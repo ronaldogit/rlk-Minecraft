@@ -547,6 +547,15 @@ public class PillarData {
 		}
 	}
 
+	public int[] verticalLeanOffsetVertices{
+		get{
+			return new int[] {
+				2,
+				7
+			};
+		}
+	}
+
 	public float[] verticalOffsets{
 		get{
 			return new float[] {
@@ -555,6 +564,27 @@ public class PillarData {
 			};
 		}
 	}
+
+	public float[] leanVerticalOffsets{
+		get{
+			return new float[] {
+				2f * CubeMeshData.yThickness * Mathf.Tan(this.angle) + 0.1f,
+				2f * CubeMeshData.yThickness * Mathf.Tan(this.angle) + 0.1f
+			};
+		}
+	}
+
+	public float[] minusLeanVerticalOffsets{
+		get{
+			return new float[] {
+				-2f * CubeMeshData.yThickness,
+				-2f * CubeMeshData.yThickness
+
+			};
+		}
+	}
+
+
 
 	public void  draw()
 	{
@@ -796,16 +826,36 @@ public class PillarData {
 		Vector3[] centers = this.centerHsByNum(num);
 		float[] rotations = this.localRotationsByNum(num);
 
-		for (int i = 0; i < lens.Length; i++)
+		for (int i = 0; i < lens.Length - num/2; i++)
 		{
 			float len = (float)lens[i];
 			//			Debug.Log ("len " + len + " i=  " + i);
 			GameObject go;
-			if(i < (num * 2 + 1)){
+
+			//左边第一斜边 别出头
+			if (i == 0) {
+				go = MakeCubeWithSideOffset(0.5f * len, Vector3.zero, this.rightOffsetVertices, this.leanVerticalOffsets);
+			} else if (i == num * 2 - 1) {
+				//最右边一个斜边 别出头
+				go = MakeCubeWithSideOffset(0.5f * len, Vector3.zero, this.leftOffsetVertices, this.minusLeanVerticalOffsets);
+			}else if(i < (num * 2 + 1)){
 				go = MakeCube(0.5f*len, Vector3.zero);
 			}else{
 				go = MakeCubeWithSideOffset(0.5f * len, Vector3.zero, this.verticalOffsetVertices, this.verticalOffsets);
 			}
+			go.name = go.name + "." +i ;
+			go.transform.position = go.transform.position + centers[i];
+			go.transform.rotation = Quaternion.Euler(0f, 0f, rotations[i]);
+			go.transform.parent = RLKUtility.Room_pillar.transform;
+		}
+
+		//右边竖着的柱子
+
+		for (int i = lens.Length - num/2; i < lens.Length; i++)
+		{
+			float len = (float)lens[i];
+			//			Debug.Log ("len " + len + " i=  " + i);
+			GameObject go = MakeCubeWithSideOffset(0.5f * len, Vector3.zero, this.rightOffsetYVertices, this.yOffsets);
 			go.name = go.name + "." +i ;
 			go.transform.position = go.transform.position + centers[i];
 			go.transform.rotation = Quaternion.Euler(0f, 0f, rotations[i]);
